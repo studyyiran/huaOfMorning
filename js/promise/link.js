@@ -13,7 +13,8 @@ function MyPromise(runNowFunc) {
       status = promiseStatus.resolved
       // 2.触发回调
       thenArr.forEach((func) => {
-        func(promiseResult)
+        const result = func(promiseResult)
+        _saveResult(result)
       })
     },0)
   }
@@ -30,6 +31,10 @@ function MyPromise(runNowFunc) {
     }
   }
 
+  function promiseWrapper() {
+    return new Promise(() => {})
+  }
+
   function _then(callback) {
     thenArr.push(callback)
     // if (status === promiseStatus.resolved) {
@@ -39,7 +44,7 @@ function MyPromise(runNowFunc) {
     // } else {
     //   thenArr.push(callback)
     // }
-    return this
+    return promiseWrapper()
   }
 
   if (typeof this.then !== "function") {
