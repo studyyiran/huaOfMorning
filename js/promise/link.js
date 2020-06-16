@@ -5,25 +5,40 @@ const promiseStatus = {
 function MyPromise(runNowFunc) {
   let status
   let thenArr = []
-  function _resolve() {
-    // 1.变更
-    status = promiseStatus.resolved
-    // 2.触发回调
-    thenArr.forEach((func) => {
-      func(_resolve, _reject)
-    })
+  let promiseResult
+  function _resolve(result) {
+    setTimeout(() => {
+      _saveResult(result)
+      // 1.变更
+      status = promiseStatus.resolved
+      // 2.触发回调
+      thenArr.forEach((func) => {
+        func(promiseResult)
+      })
+    },0)
   }
 
   function _reject() {
 
   }
 
-  function _then(callback) {
-    if (status === promiseStatus.resolved) {
-      callback && callback(_resolve, _reject)
+  function _saveResult(result) {
+    if (result instanceof MyPromise) {
+
     } else {
-      thenArr.push(callback)
+      promiseResult = result
     }
+  }
+
+  function _then(callback) {
+    thenArr.push(callback)
+    // if (status === promiseStatus.resolved) {
+    //   if (callback) {
+    //     _saveResult(callback(promiseResult))
+    //   }
+    // } else {
+    //   thenArr.push(callback)
+    // }
     return this
   }
 
@@ -31,7 +46,13 @@ function MyPromise(runNowFunc) {
     MyPromise.prototype.then = _then
     // MyPromise.prototype.then = then
   }
-  runNowFunc(_resolve, _reject)
+  try {
+    runNowFunc(_resolve, _reject)
+  } catch(e) {
+    console.error(e)
+    console.error('u must have')
+  }
+
 }
 
 module.exports = {
