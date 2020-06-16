@@ -1,0 +1,30 @@
+//@import (reference) "~common/styles/index.less";
+//@import (reference) "index1.less";
+@import "index1.less";
+
+//@p1: {
+//
+//};
+//
+//.hello(@p1);
+
+
+.test-less {
+  #add-font-size(@value1);
+  #add-font-weight(@value2);
+  .text;
+  .addbg;
+}
+
+
+.test-mixin {
+          color: #hello(green)[];
+}
+
+@p: {
+  .text-font {
+    font-size: 10 * @px;
+  }
+
+}
+#hello2(@p);
