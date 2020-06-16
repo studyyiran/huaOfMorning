@@ -1,4 +1,4 @@
-const {MyPromise} = require('./link')
+let {MyPromise} = require('./link')
 
 const expect = (func, content) => {
   if (func && func()) {
@@ -23,4 +23,19 @@ const a = () => {
   }, 'is link')
 }
 
-a()
+const b = () => {
+  // MyPromise = Promise
+  console.log('1')
+  const p1 = new MyPromise((resolve) => {
+    console.log('run')
+    resolve()
+  });
+  console.log('2')
+  p1.then(() => {
+    console.log('get it')
+  })
+  console.log('3')
+}
+
+b()
+
