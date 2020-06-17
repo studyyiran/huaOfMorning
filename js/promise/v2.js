@@ -55,6 +55,8 @@ function MyPromise(func) {
             if (resolveValue instanceof MyPromise) {
                 // 等你完成后，我再变更状态
                 // 我不确定这个promise的状态。所以无论他怎么样 我都需要。。。。继续执行？
+                // 这其实是委托。我不知道这个proimse会有什么结果。作为一个resolve家长。我委托给then
+                // 如果成了，那我再把我的态度改掉。失败了，我也更改
                 resolveValue.then((value) => {
                     this._transToResolve(value)
                 }, (value) => {
@@ -73,8 +75,9 @@ function MyPromise(func) {
             if (rejectValue instanceof MyPromise) {
                 // 等你完成后，我再变更状态
                 // 我不确定这个promise的状态。所以无论他怎么样 我都需要。。。。继续执行？
+                // reject不太一样。我的态度是，不管你们自己怎么想，我不会同意的
                 rejectValue.then((value) => {
-                    this._transToResolve(value)
+                    this._transToReject(value)
                 }, (value) => {
                     this._transToReject(value)
                 })
