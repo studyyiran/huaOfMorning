@@ -110,6 +110,10 @@ function MyPromise(func) {
                 nextTick(() => {
                     // 下一帧将promise的值（this.promiseValue）返还给我then继续执行就ok了，然后你再修改掉这个promise的状态
                     const thenReturnValue = whenRejectRunTheFunc(this.promiseValue)
+                    // 我爸爸虽然判了死刑。
+                    // 然后你访问我爸爸的then
+                    // 那你肯定第一步执行死刑的通知书catch
+                    // 然后，你是p2 = p1.catch。你的状态是什么，取决于内部值。所以你resolve扔给下一个值（如果是普通值的话，就resolve改命了其实）
                     resolve(thenReturnValue)
                 })
             })
