@@ -62,14 +62,12 @@ const d = () => {
 }
 
 const e = () => {
-    const p1 = new MyPromise((resolve) => {
+    const p1 = new MyPromise((resolve, reject) => {
         console.log('run p1')
-        resolve('resolve string')
+        // resolve('resolve string')
+        reject('resolve string')
     })
-    const p2 = p1.then((resolve, reject) => {
-        reject('reject string')
-    })
-    p2.then(() => {
+    p1.then(() => {
         console.log('get 1')
     }, () => {
         console.log('get 2')
@@ -84,6 +82,10 @@ const e = () => {
 // c('then can pass promise')
 // d('then can pass promise')
 e('reject')
+
+
+
 /*
-1
+
+为什么then的后面是value 不是resolve，reject
  */
