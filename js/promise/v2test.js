@@ -179,7 +179,11 @@ const j = () => {
     const p1 = new MyPromise((resolve, reject) => {
         resolve(new MyPromise((resolve2, reject2) => {
             setTimeout(() => {
-                resolve2('抢险跑')
+                resolve2(new MyPromise((resolve3, reject3) => {
+                    setTimeout(() => {
+                        reject3('你输了')
+                    }, 600)
+                }))
             }, 500)
         }))
         resolve(new MyPromise((resolve, reject2) => {
@@ -189,9 +193,9 @@ const j = () => {
         }))
     })
     p1.then((v) => {
-        console.log('3' + v)
+        console.log(v)
     }, (v) => {
-        console.error('4' + v)
+        console.error(v)
     })
 
 

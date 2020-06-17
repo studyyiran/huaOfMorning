@@ -70,8 +70,10 @@
         const p1 = new MyPromise((resolve, reject) => {
             resolve(new MyPromise((resolve2, reject2) => {
                 setTimeout(() => {
-                    resolve2(new Promise((resolve3, reject3) => {
-                        reject3('你输了')
+                    resolve2(new MyPromise((resolve3, reject3) => {
+                        setTimeout(() => {
+                            reject3('你输了')
+                        }, 400)
                     }))
                 }, 500)
             }))
