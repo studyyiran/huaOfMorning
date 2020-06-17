@@ -23,69 +23,69 @@ function MyPromise(func) {
     this.promiseValue = undefined
 
     function _transToResolve (_value) {
-        // 首先变更状态
-        this.status = 'resolve';
-        // 修改数值
-        this.promiseValue = _value
-        // 然后执行then的回调
-        nextTick(() => {
-            this.thenArr.forEach(function (func) {
-                func(_value)
+        if (this.status === 'padding') {
+            // 首先变更状态
+            this.status = 'resolve';
+            // 修改数值
+            this.promiseValue = _value
+            // 然后执行then的回调
+            nextTick(() => {
+                this.thenArr.forEach(function (func) {
+                    func(_value)
+                })
             })
-        })
+        }
+
     }
 
     function _transToReject (_value) {
-        // 首先变更状态
-        this.status = 'reject';
-        // 修改数值
-        this.promiseValue = _value
-        // 然后执行then的回调
-        nextTick(() => {
-            this.catchArr.forEach(function (func) {
-                func(_value)
+        if (this.status === 'padding') {
+            // 首先变更状态
+            this.status = 'reject';
+            // 修改数值
+            this.promiseValue = _value
+            // 然后执行then的回调
+            nextTick(() => {
+                this.catchArr.forEach(function (func) {
+                    func(_value)
+                })
             })
-        })
+        }
+
     }
 
     // 这是唯一可以改变状态的
     function _outCallMeResolve(resolveValue) {
-        if (this.status === 'padding') {
-            // (如果是promise呢？)那我应该尊重他
-            if (resolveValue instanceof MyPromise) {
-                // 等你完成后，我再变更状态
-                // 我不确定这个promise的状态。所以无论他怎么样 我都需要。。。。继续执行？
-                // 这其实是委托。我不知道这个proimse会有什么结果。作为一个resolve家长。我委托给then
-                // 如果成了，那我再把我的态度改掉。失败了，我也更改
-                resolveValue.then((value) => {
-                    this._transToResolve(value)
-                }, (value) => {
-                    this._transToReject(value)
-                })
-            } else {
-                this._transToResolve(resolveValue)
-            }
+        // (如果是promise呢？)那我应该尊重他
+        if (resolveValue instanceof MyPromise) {
+            // 等你完成后，我再变更状态
+            // 我不确定这个promise的状态。所以无论他怎么样 我都需要。。。。继续执行？
+            // 这其实是委托。我不知道这个proimse会有什么结果。作为一个resolve家长。我委托给then
+            // 如果成了，那我再把我的态度改掉。失败了，我也更改
+            resolveValue.then((value) => {
+                this._transToResolve(value)
+            }, (value) => {
+                this._transToReject(value)
+            })
+        } else {
+            this._transToResolve(resolveValue)
         }
-
     }
 
     function _outCallMeReject(rejectValue) {
-        if (this.status === 'padding') {
-            // (如果是promise呢？)那我应该尊重他
-            if (rejectValue instanceof MyPromise) {
-                // 等你完成后，我再变更状态
-                // 我不确定这个promise的状态。所以无论他怎么样 我都需要。。。。继续执行？
-                // reject不太一样。我的态度是，不管你们自己怎么想，我不会同意的
-                rejectValue.then((value) => {
-                    this._transToReject(value)
-                }, (value) => {
-                    this._transToReject(value)
-                })
-            } else {
-                this._transToReject(rejectValue)
-            }
+        // (如果是promise呢？)那我应该尊重他
+        if (rejectValue instanceof MyPromise) {
+            // 等你完成后，我再变更状态
+            // 我不确定这个promise的状态。所以无论他怎么样 我都需要。。。。继续执行？
+            // reject不太一样。我的态度是，不管你们自己怎么想，我不会同意的
+            rejectValue.then((value) => {
+                this._transToReject(value)
+            }, (value) => {
+                this._transToReject(value)
+            })
+        } else {
+            this._transToReject(rejectValue)
         }
-
     }
 
     // function getNextPromise(run) {
