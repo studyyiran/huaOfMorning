@@ -123,7 +123,7 @@
                         try {
                             // 这个新的 promise2 resolved 的值为 onfulfilled 的执行结果
                             let result = onfulfilled(this.value)
-                            resolvePromise(promise2, result, resolve, reject)
+                            resolve(result)
                         }
                         catch(e) {
                             reject(e)
@@ -137,7 +137,7 @@
                         try {
                             // 这个新的 promise2 reject 的值为 onrejected 的执行结果
                             let result = onrejected(this.reason)
-                            resolvePromise(promise2, result, resolve, reject)
+                            resolve(result)
                         }
                         catch(e) {
                             reject(e)
@@ -150,7 +150,7 @@
                     this.onFulfilledArray.push(value => {
                         try {
                             let result = onfulfilled(value)
-                            resolvePromise(promise2, result, resolve, reject)
+                            resolve(result)
                         }
                         catch(e) {
                             reject(e)
@@ -160,7 +160,7 @@
                     this.onRejectedArray.push(reason => {
                         try {
                             let result = onrejected(reason)
-                            resolvePromise(promise2, result, resolve, reject)
+                            resolve(result)
                         }
                         catch(e) {
                             reject(e)
@@ -173,27 +173,23 @@
 
         // --------
         const MyPromise = Promise
-        const p1 = new MyPromise((resolve, reject) => {
-            resolve(new MyPromise((resolve2, reject2) => {
-                setTimeout(() => {
-                    resolve2(new MyPromise((resolve3, reject3) => {
-                        setTimeout(() => {
-                            reject3('你输了')
-                        }, 400)
-                    }))
-                }, 500)
-            }))
-            resolve(new MyPromise((resolve, reject2) => {
-                setTimeout(() => {
-                    reject2('马后炮')
-                }, 1000)
-            }))
+        const promise = new Promise((resolve, reject) => {
+            setTimeout(() => {
+                resolve('lucas')
+            }, 2000)
         })
-        p1.then((v) => {
-            console.log(v)
-        }, (v) => {
-            console.error(v)
+
+        promise.then(data => {
+            console.log(data)
+            return new Promise((resolve, reject) => {
+                setTimeout(() => {
+                    resolve(`${data} next then`)
+                }, 4000)
+            })
         })
+            .then(data => {
+                console.log(data)
+            })
     </script>
 </head>
 <body>

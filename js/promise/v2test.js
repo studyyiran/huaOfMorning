@@ -201,7 +201,7 @@ const j = () => {
 
 }
 
-const k = () => {
+const k1 = () => {
     Promise = MyPromise
     const promise = new Promise((resolve, reject) => {
         setTimeout(() => {
@@ -216,11 +216,32 @@ const k = () => {
                 resolve(`${data} next then`)
             }, 4000)
         })
+    })
+        .then(data => {
+            console.log(data)
+        })
+}
+
+const k2 = () => {
+    Promise = MyPromise
+    const promise = new Promise((resolve, reject) => {
+        setTimeout(() => {
+            resolve('lucas')
+        }, 2000)
+    })
+
+    promise.then(data => {
+        console.log(data)
+        return new Promise((resolve, reject) => {
+            setTimeout(() => {
+                resolve(`${data} next then`)
+            }, 2000)
+        })
             .then(data => {
                 return new Promise((resolve, reject) => {
                     setTimeout(() => {
                         resolve(`${data} next then`)
-                    }, 4000)
+                    }, 2000)
                 })
             })
     })
@@ -241,7 +262,8 @@ const k = () => {
 // h('突然rejecr')
 // i('free style')
 // j('已经决定，但是吃了个proimse')
-k('lucas final')
+k1('lucas final1')
+// k2('lucas final2')
 
 
 
