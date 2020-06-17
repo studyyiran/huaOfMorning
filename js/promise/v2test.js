@@ -201,6 +201,34 @@ const j = () => {
 
 }
 
+const k = () => {
+    Promise = MyPromise
+    const promise = new Promise((resolve, reject) => {
+        setTimeout(() => {
+            resolve('lucas')
+        }, 2000)
+    })
+
+    promise.then(data => {
+        console.log(data)
+        return new Promise((resolve, reject) => {
+            setTimeout(() => {
+                resolve(`${data} next then`)
+            }, 4000)
+        })
+            .then(data => {
+                return new Promise((resolve, reject) => {
+                    setTimeout(() => {
+                        resolve(`${data} next then`)
+                    }, 4000)
+                })
+            })
+    })
+        .then(data => {
+            console.log(data)
+        })
+}
+
 
 // a('Test then is still promise ? ')
 // b('then can pass value')
@@ -212,7 +240,8 @@ const j = () => {
 
 // h('突然rejecr')
 // i('free style')
-j('已经决定，但是吃了个proimse')
+// j('已经决定，但是吃了个proimse')
+k('lucas final')
 
 
 
