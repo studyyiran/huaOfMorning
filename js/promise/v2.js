@@ -9,7 +9,9 @@
 
 当你无法使用箭头的时候。（例如，你确实需要适当的动态指定。例如原型方法。）那你就可以替原型方法做主，bind上去
  */
-
+const nextTick = (func) => {
+    setTimeout(func)
+}
 
 function MyPromise(func) {
     this.status = 'padding'
@@ -18,19 +20,6 @@ function MyPromise(func) {
     this.thenArr = []
 
     this.promiseValue = undefined
-
-    function _then(whenResolveRunTheFunc) {
-        //
-        const thenBackPromise = new MyPromise( (resolve, reject) => {
-            this.thenArr.push(function (pValue) {
-                // 为了then内在的东西要执行
-                const thenReturnValue = whenResolveRunTheFunc(pValue)
-                // 为了then后面的
-                resolve(thenReturnValue)
-            })
-        })
-        return thenBackPromise
-    }
 
     function _outCallMeReject() {
 
@@ -44,7 +33,7 @@ function MyPromise(func) {
             // 修改数值
             this.promiseValue = _value
             // 然后执行then的回调
-            setTimeout(() => {
+            nextTick(() => {
                 this.thenArr.forEach(function (func) {
                     func(_value)
                 })
@@ -60,6 +49,46 @@ function MyPromise(func) {
         } else {
             init(resolveValue)
         }
+    }
+
+    // function getNextPromise(run) {
+    //     return new MyPromise((resolve, reject) => {
+    //         run(resolve, reject)
+    //     })
+    // }
+
+
+    function _then(whenResolveRunTheFunc) {
+        // 这块需要处理，当then上来的时候，已经是resolve了。
+        if (this.status === 'resolve') {
+            return new MyPromise((resolve, reject) => {
+                nextTick(() => {
+                    // 下一帧将promise的值（this.promiseValue）返还给我then继续执行就ok了，然后你再修改掉这个promise的状态
+                    const thenReturnValue = whenResolveRunTheFunc(this.promiseValue)
+                    resolve(thenReturnValue)
+                })
+            })
+        }
+
+        // if (this.status === 'reject') {
+        //     return new MyPromise((resolve, reject) => {
+        //         nextTick(() => {
+        //             // 下一帧将promise的值（this.promiseValue）返还给我then继续执行就ok了，然后你再修改掉这个promise的状态
+        //             const thenReturnValue = whenResolveRunTheFunc(this.promiseValue)
+        //             resolve(thenReturnValue)
+        //         })
+        //     })
+        // }
+
+        const thenBackPromise = new MyPromise( (resolve, reject) => {
+            this.thenArr.push(function (pValue) {
+                // 为了then内在的东西要执行
+                const thenReturnValue = whenResolveRunTheFunc(pValue)
+                // 为了then后面的
+                resolve(thenReturnValue)
+            })
+        })
+        return thenBackPromise
     }
 
     if (!MyPromise.prototype.then) {
@@ -78,71 +107,6 @@ function MyPromise(func) {
 }
 
 
-
-const expect = (func, content) => {
-    if (func && func()) {
-        console.log(content)
-        return true
-    } else {
-        console.error(content)
-        return false
-    }
+module.exports = {
+    MyPromise
 }
-
-const a = (string) => {
-    console.log(string)
-    const p1 = new MyPromise(() => {});
-    const p2 = p1.then((resolve, reject) => {
-
-    })
-    const p3 = p2.then().then()
-    expect(() => {
-        return p3 instanceof MyPromise
-    }, 'still promise after then')
-}
-
-const b = () => {
-    const p1 = new MyPromise((resolve) => {
-        console.log('run')
-        resolve('p1 is best')
-    });
-    const p2 = p1.then((value) => {
-        console.log('get it 1 ' + value)
-        return 'is string'
-        // return Promise.resolve();
-    })
-    const p3 = p2.then((value) => {
-        console.log('get it 2 ' + value)
-    })
-}
-
-
-const c = () => {
-    const p1 = new MyPromise((resolve) => {
-        console.log('run p1')
-        resolve('string')
-        
-    })
-    const p2 = p1.then((value) => {
-        console.log('run p2')
-        return new MyPromise((resolve) => {
-            setTimeout(() => {
-                console.log('timer')
-                resolve('is promise')
-            }, 1000)
-        });
-    })
-    const p3 = p2.then((value) => {
-        console.log('run p3')
-        console.log(value)
-    })
-}
-
-
-
-// a('Test then is still promise ? ')
-// b('then can pass value')
-// c('then can pass promise')
-/*
-1
- */
