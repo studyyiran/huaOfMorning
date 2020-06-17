@@ -38,15 +38,15 @@ function MyPromise(func) {
 
     // 这是唯一可以改变状态的
     function _outCallMeResolve(resolveValue) {
-        const init = () => {
+        const init = (_value) => {
             // 首先变更状态
             this.status = 'resolve';
             // 修改数值
-            this.promiseValue = resolveValue
+            this.promiseValue = _value
             // 然后执行then的回调
             setTimeout(() => {
                 this.thenArr.forEach(function (func) {
-                    func(resolveValue)
+                    func(_value)
                 })
             })
         }
@@ -54,11 +54,11 @@ function MyPromise(func) {
         // (如果是promise呢？)那我应该尊重他
         if (resolveValue instanceof MyPromise) {
             // 等你完成后，我再变更状态
-            resolveValue.then( () => {
-                init()
+            resolveValue.then((value) => {
+                init(value)
             })
         } else {
-            init()
+            init(resolveValue)
         }
     }
 
@@ -108,24 +108,41 @@ const b = () => {
     });
     const p2 = p1.then((value) => {
         console.log('get it 1 ' + value)
-        // return new Promise(() => {
-        //
-
-
-
-        // })
-        return 'is p1.then'
+        return 'is string'
         // return Promise.resolve();
     })
     const p3 = p2.then((value) => {
         console.log('get it 2 ' + value)
-        return 'is p2.then'
-        // return Promise.resolve();
     })
 }
 
+
+const c = () => {
+    const p1 = new MyPromise((resolve) => {
+        console.log('run p1')
+        resolve('string')
+        
+    })
+    const p2 = p1.then((value) => {
+        console.log('run p2')
+        return new MyPromise((resolve) => {
+            setTimeout(() => {
+                console.log('timer')
+                resolve('is promise')
+            }, 1000)
+        });
+    })
+    const p3 = p2.then((value) => {
+        console.log('run p3')
+        console.log(value)
+    })
+}
+
+
+
 // a('Test then is still promise ? ')
-b('then can pass ')
+// b('then can pass value')
+// c('then can pass promise')
 /*
 1
  */
