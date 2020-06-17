@@ -64,13 +64,21 @@ const d = () => {
 const e = () => {
     const p1 = new MyPromise((resolve, reject) => {
         console.log('run p1')
-        // resolve('resolve string')
-        reject('resolve string')
+        setTimeout(() => {
+            reject('resolve string')
+        }, 1000)
+
+        resolve('resolve string')
     })
-    p1.then(() => {
+    const p2 = p1.then(() => {
         console.log('get 1')
     }, () => {
         console.log('get 2')
+    })
+    const p3 = p2.then(() => {
+        console.log('get 3')
+    }, () => {
+        console.log('get 4')
     })
 
 }
