@@ -48,6 +48,11 @@ const b = () => {
   console.log('4')
 }
 
+/*
+调用promise是唯一能够修改promise状态的方法
+说明。。。
+ */
+
 b()
 
 const c = () => {

@@ -32,10 +32,12 @@ function MyPromise(runNowFunc) {
   }
 
   function promiseWrapper() {
-    return new Promise(() => {})
+
   }
 
   function _then(callback) {
+    const p =  new Promise((resolve, reject) => {
+    })
     thenArr.push(callback)
     // if (status === promiseStatus.resolved) {
     //   if (callback) {
