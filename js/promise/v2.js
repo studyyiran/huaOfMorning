@@ -49,34 +49,40 @@ function MyPromise(func) {
     }
 
     function _outCallMeReject(rejectValue) {
-        // (如果是promise呢？)那我应该尊重他
-        if (rejectValue instanceof MyPromise) {
-            // 等你完成后，我再变更状态
-            // 我不确定这个promise的状态。所以无论他怎么样 我都需要。。。。继续执行？
-            rejectValue.then((value) => {
-                this._transToResolve(value)
-            }, (value) => {
-                this._transToReject(value)
-            })
-        } else {
-            this._transToReject(rejectValue)
+        if (this.status === 'padding') {
+            // (如果是promise呢？)那我应该尊重他
+            if (rejectValue instanceof MyPromise) {
+                // 等你完成后，我再变更状态
+                // 我不确定这个promise的状态。所以无论他怎么样 我都需要。。。。继续执行？
+                rejectValue.then((value) => {
+                    this._transToResolve(value)
+                }, (value) => {
+                    this._transToReject(value)
+                })
+            } else {
+                this._transToReject(rejectValue)
+            }
         }
+
     }
 
     // 这是唯一可以改变状态的
     function _outCallMeResolve(resolveValue) {
-        // (如果是promise呢？)那我应该尊重他
-        if (resolveValue instanceof MyPromise) {
-            // 等你完成后，我再变更状态
-            // 我不确定这个promise的状态。所以无论他怎么样 我都需要。。。。继续执行？
-            resolveValue.then((value) => {
-                this._transToResolve(value)
-            }, (value) => {
-                this._transToReject(value)
-            })
-        } else {
-            this._transToResolve(resolveValue)
+        if (this.status === 'padding') {
+            // (如果是promise呢？)那我应该尊重他
+            if (resolveValue instanceof MyPromise) {
+                // 等你完成后，我再变更状态
+                // 我不确定这个promise的状态。所以无论他怎么样 我都需要。。。。继续执行？
+                resolveValue.then((value) => {
+                    this._transToResolve(value)
+                }, (value) => {
+                    this._transToReject(value)
+                })
+            } else {
+                this._transToResolve(resolveValue)
+            }
         }
+
     }
 
     // function getNextPromise(run) {

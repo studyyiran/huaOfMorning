@@ -92,18 +92,20 @@ const f = () => {
     const p1 = new MyPromise((resolve, reject) => {
         console.log('run p1')
         setTimeout(() => {
-            // resolve('resolve string')
-            // reject('reject string')
+            reject('reject string')
+            resolve('resolve string')
+
         }, 1000)
+
         // resolve('resolve string')
-        reject('reject string')
+
     })
     const p2 = p1.then((value) => {
         console.log('1get ' + value)
         return new MyPromise((resolve, reject) => {
             setTimeout(() => {
                  console.log('timer')
-                // resolve('resolve->then->resolve')
+                resolve('resolve->then->resolve')
                 reject('resolve->then->reject')
             }, 1000)
         })
@@ -124,6 +126,20 @@ const f = () => {
     })
 }
 
+const g = () => {
+    const p1 = new MyPromise((resolve, reject) => {
+        resolve(new Promise((resolve, reject) => {
+            resolve(123)
+            reject(456)
+        }))
+    })
+    p1.then((value) => {
+        console.log('3get ' + value)
+    }, (value) => {
+        console.log('4get ' + value)
+    })
+}
+
 
 
 // a('Test then is still promise ? ')
@@ -132,6 +148,7 @@ const f = () => {
 // d('then can pass promise')
 // e('reject')
 f('complex')
+// g('双开')
 
 
 
