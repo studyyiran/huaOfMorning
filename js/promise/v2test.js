@@ -1,5 +1,5 @@
 const {MyPromise} = require('./v2')
-
+Promise = MyPromise
 const a = (string) => {
     console.log(string)
     const p1 = new MyPromise(() => {});
@@ -65,22 +65,63 @@ const e = () => {
     const p1 = new MyPromise((resolve, reject) => {
         console.log('run p1')
         setTimeout(() => {
-            reject('resolve string')
+            resolve('resolve string')
         }, 1000)
 
-        resolve('resolve string')
+        reject('reject string')
     })
-    const p2 = p1.then(() => {
+    const p2 = p1.then((value) => {
+        console.log(value)
         console.log('get 1')
-    }, () => {
+    }, (value) => {
+        console.log(value)
         console.log('get 2')
+        return '2 continue'
     })
-    const p3 = p2.then(() => {
+    const p3 = p2.then((value) => {
+        console.log(value)
         console.log('get 3')
-    }, () => {
+    }, (value) => {
+        console.log(value)
         console.log('get 4')
     })
+}
 
+
+const f = () => {
+    const p1 = new MyPromise((resolve, reject) => {
+        console.log('run p1')
+        setTimeout(() => {
+            // resolve('resolve string')
+            // reject('reject string')
+        }, 1000)
+        // resolve('resolve string')
+        reject('reject string')
+    })
+    const p2 = p1.then((value) => {
+        console.log('1get ' + value)
+        return new MyPromise((resolve, reject) => {
+            setTimeout(() => {
+                 console.log('timer')
+                // resolve('resolve->then->resolve')
+                reject('resolve->then->reject')
+            }, 1000)
+        })
+    }, (value) => {
+        console.log('2get ' + value)
+        return new MyPromise((resolve, reject) => {
+            setTimeout(() => {
+                console.log('timer')
+                // resolve('reject->catch->resolve')
+                reject('reject->catch->reject')
+            }, 1000)
+        })
+    })
+    const p3 = p2.then((value) => {
+        console.log('3get ' + value)
+    }, (value) => {
+        console.log('4get ' + value)
+    })
 }
 
 
@@ -89,7 +130,8 @@ const e = () => {
 // b('then can pass value')
 // c('then can pass promise')
 // d('then can pass promise')
-e('reject')
+// e('reject')
+f('complex')
 
 
 
