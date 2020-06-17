@@ -22,19 +22,6 @@ function MyPromise(func) {
 
     this.promiseValue = undefined
 
-    function _transToReject (_value) {
-        // 首先变更状态
-        this.status = 'reject';
-        // 修改数值
-        this.promiseValue = _value
-        // 然后执行then的回调
-        nextTick(() => {
-            this.catchArr.forEach(function (func) {
-                func(_value)
-            })
-        })
-    }
-
     function _transToResolve (_value) {
         // 首先变更状态
         this.status = 'resolve';
@@ -48,22 +35,17 @@ function MyPromise(func) {
         })
     }
 
-    function _outCallMeReject(rejectValue) {
-        if (this.status === 'padding') {
-            // (如果是promise呢？)那我应该尊重他
-            if (rejectValue instanceof MyPromise) {
-                // 等你完成后，我再变更状态
-                // 我不确定这个promise的状态。所以无论他怎么样 我都需要。。。。继续执行？
-                rejectValue.then((value) => {
-                    this._transToResolve(value)
-                }, (value) => {
-                    this._transToReject(value)
-                })
-            } else {
-                this._transToReject(rejectValue)
-            }
-        }
-
+    function _transToReject (_value) {
+        // 首先变更状态
+        this.status = 'reject';
+        // 修改数值
+        this.promiseValue = _value
+        // 然后执行then的回调
+        nextTick(() => {
+            this.catchArr.forEach(function (func) {
+                func(_value)
+            })
+        })
     }
 
     // 这是唯一可以改变状态的
@@ -80,6 +62,24 @@ function MyPromise(func) {
                 })
             } else {
                 this._transToResolve(resolveValue)
+            }
+        }
+
+    }
+
+    function _outCallMeReject(rejectValue) {
+        if (this.status === 'padding') {
+            // (如果是promise呢？)那我应该尊重他
+            if (rejectValue instanceof MyPromise) {
+                // 等你完成后，我再变更状态
+                // 我不确定这个promise的状态。所以无论他怎么样 我都需要。。。。继续执行？
+                rejectValue.then((value) => {
+                    this._transToResolve(value)
+                }, (value) => {
+                    this._transToReject(value)
+                })
+            } else {
+                this._transToReject(rejectValue)
             }
         }
 

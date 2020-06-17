@@ -1,5 +1,5 @@
 const {MyPromise} = require('./v2')
-Promise = MyPromise
+// Promise = MyPromise
 const a = (string) => {
     console.log(string)
     const p1 = new MyPromise(() => {});
@@ -140,6 +140,39 @@ const g = () => {
     })
 }
 
+const h = () => {
+    const p1 = new MyPromise((resolve, reject) => {
+        reject('reject string')
+    })
+    setTimeout(() => {
+        p1.then((value) => {
+            console.log('3get ' + value)
+        }, (value) => {
+            console.log('4get ' + value)
+        })
+    }, 1000)
+}
+
+const i = () => {
+    const p1 = new MyPromise((resolve, reject) => {
+        setTimeout(() => {
+            console.log('timer')
+            // reject('error1 ')
+            resolve(new Promise((resolve, reject) => {
+                setTimeout(() => {
+                    resolve('pass2')
+                }, 1000)
+            }))
+        }, 1000)
+    })
+    p1.then((value) => {
+        console.log('1get' + value)
+    }, (value) => {
+        console.log('2get' + value)
+    }).then((value) => {
+        console.log('3get' + value)
+    })
+}
 
 
 // a('Test then is still promise ? ')
@@ -147,8 +180,11 @@ const g = () => {
 // c('then can pass promise')
 // d('then can pass promise')
 // e('reject')
-f('complex')
+// f('complex')
 // g('双开')
+
+// h('突然rejecr')
+i('free style')
 
 
 
