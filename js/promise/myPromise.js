@@ -11,7 +11,12 @@
  */
 
 const nextTick = (func) => {
-    setTimeout(func)
+    try {
+        setTimeout(func)
+    }catch (e) {
+        console.error(e)
+    }
+
 }
 
 function MyPromise(func) {
@@ -100,65 +105,125 @@ function MyPromise(func) {
     }
 
 
-    function _then(whenResolveRunTheFunc = () => {}, whenRejectRunTheFunc = () => {}) {
+    function _then(whenResolveRunTheFunc, whenRejectRunTheFunc) {
+        if (whenResolveRunTheFunc) {
+            if (typeof whenResolveRunTheFunc === 'number') {
+                whenResolveRunTheFunc = function(v) {
+                    return v
+                }
+            }
+            if (!(whenResolveRunTheFunc instanceof Function) && whenResolveRunTheFunc instanceof Object) {
+                console.log('get it')
+                whenResolveRunTheFunc = function(v) {
+                    return v
+                }
+            }
+        } else {
+            whenResolveRunTheFunc = function(v) {
+                return v
+            }
+        }
+
+        if (whenRejectRunTheFunc) {
+            if (typeof whenRejectRunTheFunc === 'number') {
+                whenRejectRunTheFunc = function(e) {
+                    return new MyPromise((resolve, reject) => {
+                        reject(e)
+                    })
+                }
+            }
+            if (!(whenRejectRunTheFunc instanceof Function) && whenRejectRunTheFunc instanceof Object) {
+                whenRejectRunTheFunc = function(e) {
+                    return new MyPromise((resolve, reject) => {
+                        reject(e)
+                    })
+                }
+            }
+        } else {
+            whenRejectRunTheFunc = function(e) {
+                return new MyPromise((resolve, reject) => {
+                    reject(e)
+                })
+            }
+        }
+
         // 这块需要处理，当then上来的时候，已经是resolve了。
         if (this.status === 'resolve') {
             const p2 = new MyPromise((resolve, reject) => {
                 nextTick(() => {
-                    // 下一帧将promise的值（this.promiseValue）返还给我then继续执行就ok了，然后你再修改掉这个promise的状态
-                    const thenReturnValue = whenResolveRunTheFunc(this.promiseValue)
-                    console.log(p2 === thenReturnValue)
-                    if (p2 === thenReturnValue) {
-                        reject('circle')
-                    } else {
-                        resolve(thenReturnValue)
+                    try {
+                        // 下一帧将promise的值（this.promiseValue）返还给我then继续执行就ok了，然后你再修改掉这个promise的状态
+                        const thenReturnValue = whenResolveRunTheFunc(this.promiseValue)
+                        console.log(p2 === thenReturnValue)
+                        if (p2 === thenReturnValue) {
+                            reject('circle')
+                        } else {
+                            resolve(thenReturnValue)
+                        }
+                    } catch(e) {
+                        reject(e)
                     }
-
                 })
             })
             return p2
         } else if (this.status === 'reject') {
             return new MyPromise((resolve, reject) => {
                 nextTick(() => {
-                    // 下一帧将promise的值（this.promiseValue）返还给我then继续执行就ok了，然后你再修改掉这个promise的状态
-                    const thenReturnValue = whenRejectRunTheFunc(this.promiseValue)
-                    // 我爸爸虽然判了死刑。
-                    // 然后你访问我爸爸的then
-                    // 那你肯定第一步执行死刑的通知书catch
-                    // 然后，你是p2 = p1.catch。你的状态是什么，取决于内部值。所以你resolve扔给下一个值（如果是普通值的话，就resolve改命了其实）
-                    if (this === thenReturnValue) {
-                        reject('circle')
-                    } else {
-                        resolve(thenReturnValue)
+                    try {
+                        // 下一帧将promise的值（this.promiseValue）返还给我then继续执行就ok了，然后你再修改掉这个promise的状态
+                        const thenReturnValue = whenRejectRunTheFunc(this.promiseValue)
+                        // 我爸爸虽然判了死刑。
+                        // 然后你访问我爸爸的then
+                        // 那你肯定第一步执行死刑的通知书catch
+                        // 然后，你是p2 = p1.catch。你的状态是什么，取决于内部值。所以你resolve扔给下一个值（如果是普通值的话，就resolve改命了其实）
+                        if (this === thenReturnValue) {
+                            reject('circle')
+                        } else {
+                            resolve(thenReturnValue)
+                        }
+                    } catch(e) {
+                        reject(e)
+                        console.error(e)
                     }
+
                 })
             })
         } else if (this.status ==='padding') {
             return new MyPromise( (resolve, reject) => {
                 if (whenResolveRunTheFunc) {
                     this.thenArr.push(function (pValue) {
-                        // 为了then内在的东西要执行
-                        const thenReturnValue = whenResolveRunTheFunc(pValue)
-                        // 为了then后面的
-                        if (this === thenReturnValue) {
-                            reject('circle')
-                        } else {
-                            resolve(thenReturnValue)
+                        try {
+                            // 为了then内在的东西要执行
+                            const thenReturnValue = whenResolveRunTheFunc(pValue)
+                            // 为了then后面的
+                            if (this === thenReturnValue) {
+                                reject('circle')
+                            } else {
+                                resolve(thenReturnValue)
+                            }
+                        } catch(e) {
+                            reject(e)
                         }
+
                     })
                 }
 
                 if (whenRejectRunTheFunc) {
                     this.catchArr.push(function (pValue) {
-                        // 为了then内在的东西要执行
-                        const thenReturnValue = whenRejectRunTheFunc(pValue)
-                        // 为了then后面的
+                        try {
+                            // 为了then内在的东西要执行
+                            const thenReturnValue = whenRejectRunTheFunc(pValue)
+                            // 为了then后面的
 
-                        if (this === thenReturnValue) {
-                            reject('circle')
-                        } else {
-                            resolve(thenReturnValue)
+                            if (this === thenReturnValue) {
+                                reject('circle')
+                            } else {
+                                resolve(thenReturnValue)
+                            }
+                        } catch(e) {
+                            reject(e)
                         }
+
                     })
                 }
             })

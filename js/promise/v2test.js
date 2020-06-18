@@ -1,6 +1,6 @@
 let {MyPromise} = require('./myPromise')
-
-// Promise = MyPromise
+const savePromise = Promise
+Promise = null
 const a = (string) => {
     console.log(string)
     const p1 = new MyPromise(() => {});
@@ -30,7 +30,6 @@ const b = () => {
 
 
 const c = () => {
-    Promise = MyPromise
     const p1 = new MyPromise((resolve) => {
         console.log('run p1')
         resolve('string')
@@ -171,7 +170,6 @@ const h = () => {
 }
 
 const i = () => {
-    // MyPromise = Promise
     const p1 = new MyPromise((resolve, reject) => {
         setTimeout(() => {
             console.log('timer')
@@ -219,7 +217,6 @@ const j = () => {
 }
 
 const k1 = () => {
-    Promise = MyPromise
     const promise = new Promise((resolve, reject) => {
         setTimeout(() => {
             resolve('lucas')
@@ -240,7 +237,6 @@ const k1 = () => {
 }
 
 const k2 = () => {
-    Promise = MyPromise
     const promise = new Promise((resolve, reject) => {
         setTimeout(() => {
             resolve('lucas')
@@ -267,6 +263,90 @@ const k2 = () => {
         })
 }
 
+const t0 = () => {
+    const p1 = new Promise((resolve, reject) => {
+        resolve()
+    })
+
+}
+
+const t1 = () => {
+    const p1 = new MyPromise((resolve, reject) => {
+        setTimeout(() => {
+            reject('gegege')
+        }, 1000)
+    })
+    const p2 = p1.then(function () { }, undefined).then({}, function (e) {
+        console.log(e)
+    })
+    const p3 = p2.then(() => {
+        console.log('get it2')
+    })
+
+}
+
+const t3 = () => {
+    const test = MyPromise
+    // const test = savePromise
+    // const p1 = new savePromise((resolve, reject) => {
+    const p0 = new test((resolve, reject) => {
+        setTimeout(() => {
+            resolve('p0')
+        }, 2000)
+
+
+    })
+    const p1 = new test((resolve, reject) => {
+        setTimeout(() => {
+            resolve(123)
+        }, 100)
+    })
+    const p2 = p1.then(() => {
+        return () => {
+            console.log('hehe?')
+        }
+    }, null)
+    p2.then((v) => {
+        console.log(v)
+    })
+
+}
+
+const t2 = () => {
+    // const p1 = new savePromise((resolve, reject) => {
+    const p1 = new MyPromise((resolve, reject) => {
+        console.log('get it')
+        reject('hehe')
+        // setTimeout(() => {
+        //     reject('hehe')
+        // }, 100)
+    })
+    const p2 = new MyPromise((reject) => {
+        reject('miao')
+    })
+    p1.then(() => {
+
+    }, (v) => {
+        console.log('1')
+        console.log(v)
+    });
+    p1.then(() => {
+
+    }, (v) => {
+        console.log('2')
+        throw('miao')
+    }).then(() => {
+
+    }, () => {});
+    p1.then(() => {
+
+    }, (v) => {
+        console.log('3')
+        console.log(v)
+    })
+
+}
+
 
 // a('Test then is still promise ? ')
 // b('then can pass value')
@@ -282,25 +362,33 @@ const k2 = () => {
 // k1('lucas final1')
 // k2('lucas final2')
 
-var promisesAplusTests = require("promises-aplus-tests");
+if (true) {
+    // t1('缺省')
+    t3('缺省2')
+    // t2('fail chain')
+} else {
+    var promisesAplusTests = require("promises-aplus-tests");
 
-const deferred = () => {
-    let resolve
-    let reject
-    let promise = new MyPromise((a, b) => {
-        resolve = a
-        reject = b
-    })
-    return {
-        resolve,
-        reject,
-        promise
+    const deferred = () => {
+        let resolve
+        let reject
+        let promise = new MyPromise((a, b) => {
+            resolve = a
+            reject = b
+        })
+        return {
+            resolve,
+            reject,
+            promise
+        }
     }
+
+    promisesAplusTests({deferred}, function (err) {
+        // All done; output is in the console. Or check `err` for number of failures.
+    });
 }
 
-promisesAplusTests({deferred}, function (err) {
-    // All done; output is in the console. Or check `err` for number of failures.
-});
+
 
 
 /*
