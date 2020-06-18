@@ -9,6 +9,7 @@
 
 当你无法使用箭头的时候。（例如，你确实需要适当的动态指定。例如原型方法。）那你就可以替原型方法做主，bind上去
  */
+
 const nextTick = (func) => {
     setTimeout(func)
 }

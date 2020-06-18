@@ -1,4 +1,5 @@
-let {MyPromise} = require('./v2')
+let {MyPromise} = require('./myPromise')
+
 // Promise = MyPromise
 const a = (string) => {
     console.log(string)
@@ -262,9 +263,28 @@ const k2 = () => {
 // h('突然rejecr')
 // i('free style')
 // j('已经决定，但是吃了个proimse')
-k1('lucas final1')
+// k1('lucas final1')
 // k2('lucas final2')
 
+var promisesAplusTests = require("promises-aplus-tests");
+
+const deferred = () => {
+    let resolve
+    let reject
+    let promise = new MyPromise((a, b) => {
+        resolve = a
+        reject = b
+    })
+    return {
+        resolve,
+        reject,
+        promise
+    }
+}
+
+promisesAplusTests({deferred}, function (err) {
+    // All done; output is in the console. Or check `err` for number of failures.
+});
 
 
 /*
