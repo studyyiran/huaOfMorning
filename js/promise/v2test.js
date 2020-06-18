@@ -30,22 +30,38 @@ const b = () => {
 
 
 const c = () => {
+    Promise = MyPromise
     const p1 = new MyPromise((resolve) => {
         console.log('run p1')
         resolve('string')
     })
     const p2 = p1.then((value) => {
-        console.log('run p2')
-        return new MyPromise((resolve) => {
+        console.log('1get '+  value);
+        return new MyPromise((resolve, reject) => {
             setTimeout(() => {
-                console.log('timer')
-                resolve('is promise')
+                reject('123')
             }, 1000)
-        });
+        })
+        // return new MyPromise((resolve) => {
+        //     setTimeout(() => {
+        //         console.log('timer1')
+        //         resolve('is promise1')
+        //     }, 1000)
+        // }).then((value) => {
+        //     console.log('2get '+  value);
+        //     return new MyPromise((resolve2) => {
+        //         setTimeout(() => {
+        //             console.log('timer2')
+        //             resolve2('is promise2')
+        //         }, 1000)
+        //     })
+        // })
     })
     const p3 = p2.then((value) => {
-        console.log('run p3')
-        console.log(value)
+        console.log('3get ');
+    }, (err) => {
+        console.log('4get ');
+        // console.error(err)
     })
 }
 
