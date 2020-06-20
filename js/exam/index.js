@@ -10,15 +10,25 @@
 function sortExtensionsByName(extensions) {
     // a b c叫做增序 比较字符串
     function getString(obj) {
-        return (obj.firstName + obj.lastName + obj.ext).toString();
+        return obj.firstName + obj.lastName + obj.ext;
     }
-    const arr = extensions.sort((a, b) => {
-        const s1 = getString(a)
-        const s2 = getString(b)
-        return s1.localeCompare(s2)
+    return extensions.sort((a, b) => {
+        return a.firstName.localeCompare(b.firstName)
     })
-    return arr
 }
+
+const arr = [
+    {firstName: 'a', lastName: 'b', ext: 'xxx', extType: 'xxx'},
+    {firstName: 'a', lastName: 'a', ext: 'xxx', extType: 'xxx'},
+    {firstName: 'c', lastName: 'xxx', ext: 'xxx', extType: 'xxx'},
+    {firstName: 'd', lastName: 'xxx', ext: 'xxx', extType: 'xxx'},
+    {firstName: 'd', lastName: 'xxx', ext: 'xxx', extType: 'xxx'},
+    {firstName: 'd', lastName: 'xxx', ext: 'xxx', extType: 'xxx'},
+    {firstName: 'd', lastName: 'xxx', ext: 'xxx', extType: 'xxx'},
+    {firstName: 'd', lastName: 'xxx', ext: 'xxx', extType: 'xxx'},
+]
+
+console.log(sortExtensionsByName(arr))
 
 
 /**
@@ -33,8 +43,6 @@ function sortExtensionsByExtType(extensions) {
         return getRankValue.indexOf(a.extType) - getRankValue.indexOf(b.extType)
     })
 }
-
-console.log(sortExtensionsByExtType(testExtensions))
 
 
 /**
@@ -78,17 +86,6 @@ function sumByQuarter(saleItems) {
     })
     return arr
 }
-
-const saleItemsArr = [
-    {
-        month: 3, //[1-12],
-        date: 12, //[1-31],
-        transationId: "23",
-        salePrice: 100
-    }
-]
-
-console.log(sumByQuarter(saleItemsArr))
 
 /**
  Q4: 写一个函数，计算每个季度的*平均*销售额，输出格式如下，其中quater为第几季度，transactionNums为数量
@@ -149,9 +146,4 @@ function getUnUsedKeys(allKeys, usedKeys) {
         return usedKeys.indexOf(item) === -1
     })
 }
-
-// console.log(getUnUsedKeys([0,1,2,3,4,5,6,7,8,9], [2,3,4]))
-
-
-
 
