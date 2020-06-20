@@ -8,6 +8,10 @@
 当你不想知道。你确定，this是谁（不需要this也算），哪怕是在调用之前。那你应该用()=>
 
 当你无法使用箭头的时候。（例如，你确实需要适当的动态指定。例如原型方法。）那你就可以替原型方法做主，bind上去
+
+**kyle建议，词法还有this二选1不要mix
+
+https://github.com/YvetteLau/Blog/issues/2
  */
 
 const nextTick = (func) => {
@@ -34,12 +38,14 @@ function MyPromise(func) {
             this.status = 'resolve';
             // 修改数值
             this.promiseValue = _value
-            // 然后执行then的回调
-            nextTick(() => {
+
+            const haha = function () {
                 this.thenArr.forEach(function (func) {
                     func(_value)
                 })
-            })
+            }
+            // 然后执行then的回调
+            nextTick(haha.bind(this))
         }
 
     }

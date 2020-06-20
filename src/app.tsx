@@ -8,6 +8,7 @@ import { StoreAjaxPageContextProvider } from "pages/ajax/context";
 import hocDocumentTitle from "common/components/documentTitle";
 import { IOriginData } from "common/interface";
 import "./index.less";
+import {Sequence} from "./common/test";
 
 interface IApp {
   originData?: IOriginData;
@@ -15,7 +16,13 @@ interface IApp {
 
 export const App: React.FC<IApp> = ({ originData }) => {
   // 这段脚本只在浏览器运行 从window中获取.进行脱水
-
+    // @ts-ignore
+    const s : any = new Sequence();
+    useEffect(() => {
+        window.setInterval(() => {
+            s.next()
+        }, 1000)
+    }, [])
   // router是最外层
   // 然后是provider层,这样store可以使用router的信息
   // 然后是组件渲染层.
