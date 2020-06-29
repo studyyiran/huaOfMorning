@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script>
+        var haha = 1
+        var out = 'out'
+        function a() {
+            var haha =2
+            var aa = 'aa'
+            var myOut = out + '.enen!'
+            function b() {
+                window.setInterval(() => {
+                    haha++
+                }, 100)
+                var bb = 'bb'
+                function c() {
+                    return () => {
+                        console.log(myOut)
+                        console.log(bb + aa)
+                        console.log(haha)
+                    }
+                }
+                return c()
+            }
+            return b()
+        }
+        const ref = a()
+        window.setInterval(ref, 1000)
+
+        function x() {
+            var b = 'secreat'
+            // 虽然这个函数没有被执行。但是无论任何时候他被执行，他都能根据outenv获取到所有scope chain。任何时候都是一样的。
+            // 这让我困惑了。outEnv看起来是此法的。但是这些变量又是执行的时候创建的，并且他们本身也是动态的。
+            // 说明闭包不仅仅是持有了引用。而且还。。。持有了outenv链条上面，所有执行环境的所有变量。他都持有了。也就是说。。
+            // ourenv虽然指向的东西，在词法上就确定了。但是指向的东西的值，是时刻存在的ex。不变的指针，缓存的ec。这有点神奇。
+            return () => {
+                console.log(b)
+            }
+        }
+        x();
+    </script>
+</head>
+<body>
+
+</body>
+</html>

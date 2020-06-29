@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script>
+        /*
+        基本for循环
+         */
+
+        // for (var i = 0; i < 5; i++) {
+        // 每一个都会按照规矩输出window.i 但是他仅仅有一个变量
+        //     console.log(i)
+        // }
+
+        // for (var i = 0; i < 5; i++) {
+        //     // 这个不可以的原因是因为，你一直在做window.j 这牵扯到重复var的知识点
+        //     var j = i
+        //     window.setTimeout(() => {
+        //         var innerFunc = () => {
+        //             console.log(j)
+        //         }
+        //         innerFunc()
+        //     })
+        //
+        //     // 我需要一个工厂来保存我们的i
+        // }
+        //
+        //
+        // for (var i = 0; i < 5; i++) {
+        //     // 因此重点是形成iife在里面用j保存i
+        //     var j = i
+        //     window.setTimeout(() => {
+        //         console.log(j)
+        //     })
+        //
+        //     // 我需要一个工厂来保存我们的i
+        // }
+
+        // for (var i = 0; i < 5; i++) {
+        //     // 这个也不行居然？？？
+        //     // 对，也不行。这样每个j，还是拿不到i。i的词法仍然是window.i
+        //     // 虽然每个函数，都准确的捕捉到了外部的变量。。。但是，外部变量仍然只有一个。而不是独立的。因为你只有调用工厂的时候，才是生成的时候
+        //     const getValue = () => {
+        //         var j = i
+        //         return () => j
+        //     }
+        //     window.setTimeout(() => {
+        //         console.log(getValue()())
+        //     })
+        // }
+
+        // for (var i = 0; i < 5; i++) {
+        //     // 我就不能用var，因此我用匿名函数，巧妙的用入参的形式，给了多个独立函数进去，达成了目的
+        //     window.setTimeout( (() => {
+        //         var j = i
+        //         return () => {
+        //             console.log(j)
+        //         }
+        //     })())
+        // }
+
+
+        for (let i = 0; i < 5; i++) {
+            // 我就不能用var，因此我用匿名函数，巧妙的用入参的形式，给了多个独立函数进去，达成了目的
+            window.setTimeout(() => {
+                console.log(i)
+            })
+        }
+        window.setTimeout(() => {
+            console.log(i)
+        }, 100)
+
+
+        /*
+        其实只要搞懂了var是定义在全局上面，每一次声明var都会覆盖的这个概念
+        你就知道如何解决了。解决就是
+        1）创造出函数空间，来capture。形成一个只读的i
+        2）在合适的时候，吐出来capture的值
+        3）不要覆盖函数，导致前功尽弃
+
+        所以闭包本质上，就是作用链域的一个持久引用。当你的函数被他人持有的时候。你随时可以访问该函数的与生俱来的outenv属性。
+        这本身也是理所当然的合理
+         */
+
+        // var linshi
+        // for (var i =0; i< 5; i++) {
+        //     (() => {
+        //         var j = i
+        //         return () => {
+        //             return j
+        //         }
+        //     })()
+        //     window.setTimeout(() => {
+        //         console.log(linshi())
+        //     })
+        // }
+
+
+        // console.log('finish')
+        // console.log(i)
+        // var j = 0;
+        // for (; j < 5; j++) {
+        //     console.log(j)
+        //     // 我需要一个工厂来保存我们的i
+        // }
+        // function() {
+        //   var i = 0;
+        //   for(i; i < 5; i++) {
+        //
+        //   }
+        // }()
+    </script>
+</head>
+<body>
+
+</body>
+</html>
