@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script>
+        function test(nums) {
+            let maxValue;
+            function calc(arr) {
+                return arr.reduce((sum, b) => {
+                    return sum + b
+                }, 0)
+            }
+            for (var i = 0; i < nums.length; i++) {
+                for (var j = i; j < nums.length; j++) {
+                    var result = calc(nums.slice(i, j + 1));
+                    if (maxValue === undefined || result > maxValue) {
+                        maxValue = result;
+                    }
+                }
+            }
+            return maxValue
+        }
+        const result = test([-1,0,-2])
+        console.log(result)
+    </script>
+</head>
+<body>
+
+</body>
+</html>
