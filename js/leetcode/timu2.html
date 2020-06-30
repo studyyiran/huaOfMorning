@@ -4,16 +4,30 @@
     <meta charset="UTF-8">
     <title>Title</title>
     <script>
+        // 速度太慢了。因此我改进下
+        /*
+        可以通过排序 去负数解决
+        可以通过不进行reduce，快速计算解决。目前计算负担很大
+         */
         function test(nums) {
             let maxValue;
-            function calc(arr) {
-                return arr.reduce((sum, b) => {
-                    return sum + b
-                }, 0)
-            }
+            const calc = (function(nums) {
+                let hm1 = new Map()
+                let total
+                for (var i =0; i < nums.length; i++) {
+                    total = (total || 0) + nums[i]
+                    hm1.set(i, total)
+                }
+
+                return function (start, end) {
+                    const endValue = hm1.get(end)
+                    const startValue = start === 0 ? 0 : hm1.get(start - 1)
+                    return endValue - startValue
+                }
+            })(nums)
             for (var i = 0; i < nums.length; i++) {
                 for (var j = i; j < nums.length; j++) {
-                    var result = calc(nums.slice(i, j + 1));
+                    var result = calc(i, j);
                     if (maxValue === undefined || result > maxValue) {
                         maxValue = result;
                     }
@@ -21,7 +35,16 @@
             }
             return maxValue
         }
-        const result = test([-1,0,-2])
+        const result = test([1,2])
+        /*
+        [1,2,3]
+        0,0 0 - null
+        0,1 1 - null
+        0,2 2 - null
+        1,1 1 - 0
+        1,2 2 - 0
+        2,2 2 - 1
+         */
         console.log(result)
     </script>
 </head>
