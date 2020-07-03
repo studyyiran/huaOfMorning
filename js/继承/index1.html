@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script>
+        function Father(name, from) {
+            this.fatherName = name
+            this.from = from
+        }
+        Father.prototype.getFatherName = function() {
+            return this.fatherName + this.from
+        }
+
+        function Child(name,age, ...other) {
+            Father.apply(this, other);
+            this.name = name
+            this.age = age
+        }
+        Child.prototype = new Father();
+        Child.prototype.getInfo = function() {
+            return this.name + this.age + this.fatherName
+        }
+
+        const c1 = new Child('haha', 9, 'mama', 'zhjongdong')
+        const c2 = new Child('hehe', 18, 'baba', 'hangzhou1')
+
+        var l = console.log
+        l(c1)
+
+        l(c1.getFatherName())
+
+
+        l(c1.getInfo())
+        l(c2)
+        l(c2.getFatherName())
+        l(c2.getInfo())
+
+    </script>
+</head>
+<body>
+
+</body>
+</html>
