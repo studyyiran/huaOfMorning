@@ -19,6 +19,22 @@
       }
 
       // 题目2 实现兼容new的bind
+      window.bind  = window.bind || function (...arg) {
+        var that1 = this
+        var that2 = arg.shift(0)
+        return function () {
+          return that1.apply(that2, arg)
+        }
+
+      }
+      /*
+      嗅探浏览器
+      传递参数
+      优先级低于new
+
+       */
+
+      // onClick.bind(this, 1,2,3,4)
 
       // 题目3 实现call
 
@@ -43,8 +59,11 @@
       }
 
       // 题目4 实现继承class的babel
+      // ok
 
       // 题目5 实现promise
+
+      // 我还需要复习原型、this等。看kyle和lucas的书
 
       function Father() {}
       class Child1 extends Father {}
