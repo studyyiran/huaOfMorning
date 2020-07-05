@@ -4,33 +4,56 @@
     <meta charset="UTF-8" />
     <title>Title</title>
     <script>
+      var l = console.log;
+      // 题目1 实现myNew
       function myNew() {
         var arr = Array.prototype.slice.call(arguments);
         var constructor = arr.shift();
         var obj = Object.create(constructor);
         var result = constructor.apply(obj, arr);
-        return result instanceof Object ? result : obj;
+
+        //
+
+
+        // return result instanceof Object ? result : obj;
+        return (typeof(result) === 'Object' && result !== null) ? result : obj;
       }
+
+      // 题目2 实现兼容new的bind
+
+
+
+      // 题目3 实现call
+
+      // 题目4 实现继承class的babel
+
+
+      // 题目5 实现promise
 
       function Father() {}
       class Child1 extends Father {}
       function Child2() {}
       function inherbit(child, father) {
-        var prototype = Object.create(father);
+        // 这行老错。注意！！
+        var prototype = Object.create(father.prototype);
         Object.defineProperty(prototype, "constructor", {
           enumerable: false,
           value: child,
         });
+        // 少一句
+        child.__proto__ = father
         child.prototype = prototype;
       }
       inherbit(Child2, Father);
-
-      var c1 = new Child1();
+      l(Child2.prototype.__proto__ === Father.prototype)
+      var Current = Child2
+      var c1 = new Current();
       var f1 = new Father();
-      var l = console.log;
+
       l(Child1.__proto__ === Father) // 如何实现来着？？？？
-      l(Child1 instanceof Father);// 因为Child.__proto__ === Father  Child.prototype
-        l(Father.isPrototypeOf(Child1))
+      l(c1 instanceof Current);// 因为Child.__proto__ === Father  Child.prototype
+      l(c1 instanceof Father);// 因为Child.__proto__ === Father  Child.prototype
+        l(Father.isPrototypeOf(Current))
         l(Function.prototype.isPrototypeOf(String))
     </script>
   </head>
