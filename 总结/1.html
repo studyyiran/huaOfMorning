@@ -14,25 +14,15 @@
 
         //
 
-
         // return result instanceof Object ? result : obj;
-        return (typeof(result) === 'Object' && result !== null) ? result : obj;
+        return typeof result === "Object" && result !== null ? result : obj;
       }
 
       // 题目2 实现兼容new的bind
 
-
-
       // 题目3 实现call
 
-      // 题目4 实现继承class的babel
-
-
-      // 题目5 实现promise
-
-      function Father() {}
-      class Child1 extends Father {}
-      function Child2() {}
+      // 实现继承
       function inherbit(child, father) {
         // 这行老错。注意！！
         var prototype = Object.create(father.prototype);
@@ -40,21 +30,37 @@
           enumerable: false,
           value: child,
         });
-        // 少一句
-        child.__proto__ = father
         child.prototype = prototype;
+        // 少一句
+        child.__proto__ = father;
+
       }
+
+      function _inheritsLoose(subClass, superClass) {
+        subClass.prototype = Object.create(superClass.prototype);
+        subClass.prototype.constructor = subClass;
+        subClass.__proto__ = superClass;
+      }
+
+      // 题目4 实现继承class的babel
+
+      // 题目5 实现promise
+
+      function Father() {}
+      class Child1 extends Father {}
+      function Child2() {}
+
       inherbit(Child2, Father);
-      l(Child2.prototype.__proto__ === Father.prototype)
-      var Current = Child2
+      l(Child2.prototype.__proto__ === Father.prototype);
+      var Current = Child2;
       var c1 = new Current();
       var f1 = new Father();
 
-      l(Child1.__proto__ === Father) // 如何实现来着？？？？
-      l(c1 instanceof Current);// 因为Child.__proto__ === Father  Child.prototype
-      l(c1 instanceof Father);// 因为Child.__proto__ === Father  Child.prototype
-        l(Father.isPrototypeOf(Current))
-        l(Function.prototype.isPrototypeOf(String))
+      l(Child1.__proto__ === Father); // 如何实现来着？？？？
+      l(c1 instanceof Current); // 因为Child.__proto__ === Father  Child.prototype
+      l(c1 instanceof Father); // 因为Child.__proto__ === Father  Child.prototype
+      l(Father.isPrototypeOf(Current));
+      l(Function.prototype.isPrototypeOf(String));
     </script>
   </head>
   <body></body>

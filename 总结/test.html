@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Title</title>
+    <script>
+      "use strict";
+
+      function _inheritsLoose(subClass, superClass) {
+        subClass.prototype = Object.create(superClass.prototype);
+        subClass.prototype.constructor = subClass;
+        subClass.__proto__ = superClass;
+      }
+
+      var Father = function Father(fatherName) {
+        this.fatherName = fatherName;
+      };
+
+      var Child = /*#__PURE__*/ (function (_Father) {
+        _inheritsLoose(Child, _Father);
+
+        function Child(childName) {
+          var _this;
+
+          _this = _Father.call(this, "456") || this;
+          _this.childName = childName;
+          console.log("");
+          return _this;
+        }
+
+        return Child;
+      })(Father);
+
+      var c1 = new Child("123");
+    </script>
+  </head>
+  <body></body>
+</html>
