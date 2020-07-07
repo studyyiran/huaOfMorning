@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script>
+        function myExtends(Child, Father) {
+            // 1
+            Child.prototype = Object.create(Father)
+            // 2
+            Child.prototype.constructor = Child
+            // 3(为什么这块没有使用)
+            // Child.__proto__ = Father
+            Child = Object.create(Father)
+        }
+
+        function myCreate(o) {
+            function Haha() {
+
+            }
+            Haha.prototype = o
+            return new Haha()
+        }
+        class F {
+
+        }
+        function test (){
+
+        }
+        test.prototype = F
+
+        class C extends F{
+
+        }
+        var l = console.log
+        l(C instanceof test) // why?
+        l(C.prototype instanceof F)
+
+
+        function F1 () {
+
+        }
+
+        function
+
+    </script>
+</head>
+<body>
+
+</body>
+</html>
