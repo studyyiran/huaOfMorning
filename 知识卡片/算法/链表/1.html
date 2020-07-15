@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <script>
+        /*
+        整体上来说，真难。都是细节。
+        算法最重要的是对本质流程的1，2，3的抽象。
+
+        我们应该训练自己，把多余的废话都减少，只保留最本质的内容
+         */
+        var mergeTwoLists = function(l1, l2) {
+            let head = {
+                val: null,
+                next: null
+            }
+            let current = head
+            while(l1 && l2) {
+                if (l1.val <= l2.val) {
+                    // 赋予正确的next指向
+                    current.next = l1
+                    // 移动链表
+                    l1 = l1.next
+                } else {
+                    current.next = l2
+                    l2 = l2.next
+                }
+                // 移动游标
+                current = current.next
+            }
+            // 补充后面的内容
+            current.next = l1 || l2
+            // 清除无用的头
+            return head.next
+        }
+    </script>
+</body>
+</html>
