@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <div>
+        <p>123</p>
+    </div>
+    <script>
+        var log = console.log
+        class B {
+            constructor(name2) {
+                this.name2 = name2
+            }
+            getName2() {
+                log(this.name2)
+            }
+        }
+
+        B.staticFunc = function() {
+            log(this.name1 + 'and ' + this.name2)
+        }
+        class A extends B {
+            constructor(name1, name2) {
+                super(name2)
+                this.name1 = name1
+            }
+            getName() {
+                this.getName2()
+                log(this.name1)
+                A.staticFunc.call(this)
+            }
+        }
+        /*
+        class有几个事情
+        1）A要获取B的静态方法
+        2）A的实例的proto指向A prototype 执行B prototype
+        3）我们通过super，来向父组件进行参数传递
+        4) 实例可以使用A的静态方法 B的静态方法.静态方法的特点是，无法获取到this引用。
+
+         */
+        var a1 = new A(1,2)
+        log(a1 instanceof A)
+        log(a1 instanceof B)
+        a1.getName()
+    </script>
+</body>
+</html>

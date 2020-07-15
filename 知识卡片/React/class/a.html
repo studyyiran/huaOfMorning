@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://cdn.bootcdn.net/ajax/libs/react/16.13.1/umd/react.development.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/react-dom/16.13.1/umd/react-dom.development.js"></script>
+</head>
+<body>
+    <div id="app">
+
+    </div>
+<script>
+    class A extends React.Component {
+        state = {
+            count: 1
+        }
+        static getDerivedStateFromProps (props, state) {
+            console.log('get it')
+            console.log(this)
+            return {
+                count: Date.now()
+            }
+        }
+        render() {
+            return this.state.count
+        }
+    }
+    /*
+     因此有几个推论
+     这个原因很简单
+     */
+    var log = console.log
+    log(A.__proto__ === React.Component)
+    log(A.prototype instanceof React.Component)
+    log(A.getDerivedStateFromProps())
+
+    /*
+    React类还继承了一些React.Component上的静态方法(我其实不觉得他有啥静态方法。。。。。我也不觉得这有啥用。。。)
+
+    React的生命周期，是对实例的调用，因此不需要指定this。而绑定，就需要，因为那时候你没办法获得react实例。
+     */
+    ReactDOM.render(React.createElement(A), document.getElementById('app'))
+</script>
+</body>
+</html>
