@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://cdn.bootcdn.net/ajax/libs/react/16.13.1/umd/react.development.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/react-dom/16.13.1/umd/react-dom.development.js"></script>
+</head>
+<body>
+<div id="app"></div>
+<script>
+    class A extends React.Component {
+        constructor(props) {
+            super(props);
+
+        }
+        render() {
+            return 123
+        }
+    }
+    /*
+     /*
+    https://projects.wojtekmaj.pl/react-lifecycle-methods-diagram/
+    https://zhuanlan.zhihu.com/p/38030418
+
+    react 16.3修改生命周期的原因。
+    因为，分为
+    render-phase
+    commit-phase
+    而在reder-phase react有可能执行多次。
+    因此我们仅仅保留了一个纯函数。getDerivedStateFromProps
+
+    我们删除了
+    UNSAFE_componentWillUpdate()
+    UNSAFE_componentWillReceiveProps()
+    UNSAFE_componentWillMount (多次运行，所以废弃)
+
+    constructor，getDerivedStateFromProps，render，componentDidMount会依次执行
+
+
+     可以看出来，getDerivedStateFromProps，shouldComponentUpdate，render，getSnapshotBeforeUpdate，componentDidUpdate
+     会在update阶段一次执行。
+
+
+     另外，可以发现，this.setState说明，React.Component.prototype上面记录了setState方法。
+     */
+
+     */
+    ReactDOM.render(React.createElement(A), document.getElementById('app'))
+</script>
+</body>
+</html>

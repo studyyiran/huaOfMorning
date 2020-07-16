@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://cdn.bootcdn.net/ajax/libs/react/16.13.1/umd/react.development.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/react-dom/16.13.1/umd/react-dom.development.js"></script>
+</head>
+<body>
+    <div id="app">
+
+    </div>
+<script>
+    class A extends React.Component {
+        constructor(props) {
+            super(props);
+            this.state = {
+                count: 1,
+                that: this
+            }
+        }
+
+        /*
+        这是一个静态方法。你无法获取this。
+        let partialState = Component.getDerivedStateFromProps.call(
+          null,
+          element.props,
+          inst.state,
+        );
+         */
+        static getDerivedStateFromProps (props, state) {
+            console.log(1)
+            // return {
+            //     count: 100
+            // }
+            return null
+        }
+        shouldComponentUpdate(nextProps, nextState, nextContext) {
+            console.log(2)
+            console.log(this)
+            console.log(nextState)
+            /*
+            他可以阻止渲染，但是无法组织，state的变化。
+             */
+            if (Math.random() > 0.5) {
+                return false
+            } else {
+                return true
+            }
+
+        }
+        componentDidMount() {
+            window.setInterval(() => {
+                this.setState((state, props) => {
+                    return {
+                        count: state.count + 1
+                    }
+                })
+            }, 1000)
+        }
+
+        getSnapshotBeforeUpdate(prevProps, prevState) {
+            console.log(3)
+            return 'hehe'
+        }
+
+        componentDidUpdate(prevProps, prevState, snapshot) {
+            console.log(4)
+        }
+
+        render() {
+            return this.state.count
+        }
+    }
+
+    console.log(React.Component.prototype)
+    console.log(React.Component.prototype.setState)
+    ReactDOM.render(React.createElement(A), document.getElementById('app'))
+</script>
+</body>
+</html>
