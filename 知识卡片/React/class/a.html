@@ -34,9 +34,10 @@
     log(A.__proto__ === React.Component)
     log(A.prototype instanceof React.Component)
     log(A.getDerivedStateFromProps())
+    log(React.Component.prototype)
 
     /*
-    React类还继承了一些React.Component上的静态方法(我其实不觉得他有啥静态方法。。。。。我也不觉得这有啥用。。。)
+    React类还继承了一些React.Component.prototype上的静态方法(例如setState，forceUpdate，isReactComponent)
 
     React的生命周期，是对实例的调用，因此不需要指定this。而绑定，就需要，因为那时候你没办法获得react实例。
      */
