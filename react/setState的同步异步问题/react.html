@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://cdn.bootcdn.net/ajax/libs/react/16.13.1/umd/react.development.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/react-dom/16.13.1/umd/react-dom.development.js"></script>
+</head>
+<body>
+<div id="app"></div>
+<script>
+    class A extends React.Component {
+        constructor(props) {
+            super(props);
+            this.state = {
+                count: 0,
+                bool: false
+            }
+        }
+
+        componentDidUpdate(prevProps, prevState, snapshot) {
+            // console.log('componentDidUpdate')
+            // if (this.state.count < 6) {
+            //     window.setTimeout(ReactDOM.unstable_batchedUpdates(() => {
+            //         // 这会立刻，导致state的同步更新，ui的同步变更。因为他不在context范围内
+            //         this.setState({count: this.state.count+1})
+            //         this.setState({count: this.state.count+1})
+            //         this.setState({count: this.state.count+1})
+            //     }), 0)
+            // }
+        }
+
+        componentDidMount() {
+            // 这仅仅会更新最后一次。或者说 3次合并。但是三次的state是相同的。
+            this.setState({count: this.state.count+1})
+            this.setState({count: this.state.count+1})
+            this.setState({count: this.state.count+1})
+            // window.setTimeout(() => {
+            //     this.setState(({bool}) => {
+            //         return !bool
+            //     })
+            // }, 1000)
+        }
+
+        render() {
+            console.log('render')
+            return this.state.count
+        }
+    }
+    ReactDOM.render(React.createElement(A), document.getElementById('app'))
+</script>
+</body>
+</html>
