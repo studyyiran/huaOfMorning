@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <div>
+        <p>123</p>
+    </div>
+    <script>
+        var log = console.log
+
+
+
+
+        function object(p) {
+            function f() {}
+            f.prototype = p
+            var o = new f()
+            return o
+        }
+
+        function myNew(func) {
+            let arr = Array.prototype.slice(arguments, 1)
+            // 实例指向原型链
+            let instance = Object.create(func.prototype)
+            let result = func.apply(instance, arr)
+            return (typeof result === 'obejct' && result !== null) ? result : instance
+        }
+
+        Function.prototype.bind = function (context) {
+            let that = this
+            let otherArr =  Array.prototype.slice.call(arguments, 1)
+            let fn = function (...other) {
+                // 判断以new的方式调用. 就尊重this
+                if (this instanceof that) {
+                    return that.apply(this, [...otherArr, ...other])
+                } else {
+                    return that.apply(context, [...otherArr, ...other])
+                }
+            }
+            // 这行，为了让fn作为构造函数，他的实例的__proto__指向是that.prototype
+            // 其实这行很简单，就是补充上prototype这个属性。
+            // fn.prototype = Object.create(this.prototype)
+            return fn
+        }
+
+        function a (name, age) {
+            this.name = name
+            this.age = age
+        }
+        a.prototype.log = function () {
+            log(this.name + this.age)
+        }
+        const aBinded = a.bind({name: '234'},'yiran')
+        log(aBinded.prototype)
+        var a1 = new aBinded(28);
+        log(a1.__proto__)
+        // a1.log()
+        // that.__proto__ === aBinded.prototype
+        // aBinded.call({}, )
+    </script>
+</body>
+</html>

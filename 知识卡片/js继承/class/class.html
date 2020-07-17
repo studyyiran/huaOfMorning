@@ -45,6 +45,44 @@
         log(a1 instanceof A)
         log(a1 instanceof B)
         a1.getName()
+
+
+        /*
+        es6 polifill实现
+         */
+        function myExtends(Child, Father) {
+            // 继承
+            Child.prototype = Object.create(Father.prototype)
+            // 2 静态方法
+            Child.__ptoto__ = Father
+            // 3 重写constructor
+            Child.prototype.constructor = Child
+            return Child
+        }
+        function classExtends(Child, Father) {
+            function newChild() {
+                // wrong
+                let obj = {}
+                // 调用父级
+                Father.call(obj)
+                Child.call(obj)
+            }
+            let F = myExtends(newChild, Father)
+            return F
+
+        }
+        var newA = classExtends(A, B)
+
+
+        var A = function () {
+            myExtends(innerA, Father)
+            function innerA() {
+                Father.call(this)
+                this.childName = ''
+                return this
+            }
+            return innerA
+        }
     </script>
 </body>
 </html>
