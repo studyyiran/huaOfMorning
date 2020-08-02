@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .out {
+            display: flex;
+        }
+        .container {
+        }
+        .img-container {
+            position: relative;
+            flex-shrink: 0;
+        }
+        img {
+            font-size: 12px;
+            position: absolute;
+            top: 0;
+            left: 0;
+            overflow: hidden;
+            width: 100%;
+            height: 100%;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            border-radius: inherit;
+            -o-object-fit: cover;
+            object-fit: cover;
+        }
+        .object-fit-contain {
+            /*
+            cover contain都是在不拉伸的前提下。
+            一个覆盖全部尺寸，一个坚持完整
+            */
+            object-fit: contain;
+        }
+    </style>
+</head>
+<body>
+    <div class="out">
+        <div class="img-container">
+            <div class="placeholder"></div>
+            <img src="https://pic4.zhimg.com/v2-57e5759162029a40730b6838f31a9c9f.jpg"/>
+        </div>
+        <div class="container">
+            <div class="img-container">
+                <div class="placeholder"></div>
+                <img src="https://pic4.zhimg.com/v2-57e5759162029a40730b6838f31a9c9f.jpg"/>
+            </div>
+            <p>123</p>
+        </div>
+        <div class="container">
+            <div class="img-container">
+                <div class="placeholder"></div>
+                <img class="object-fit-contain" src="https://pic4.zhimg.com/v2-57e5759162029a40730b6838f31a9c9f.jpg"/>
+            </div>
+            <p>123</p>
+        </div>
+    </div>
+    <script>
+        let doms = document.querySelectorAll('.placeholder')
+        let imgs = document.querySelectorAll('.placeholder+img')
+        let width = 300;
+        let height = 100;
+        doms.forEach((dom) => {
+            dom.setAttribute('style', `width: ${width}px; padding-top: ${height / width * 100}%`)
+        })
+        imgs.forEach((dom) => {
+            // dom.setAttribute('width', width);
+            // dom.setAttribute('height', height);
+        })
+
+    </script>
+<!--    <script>-->
+<!--        let arr = [1,2,3]-->
+<!--        arr.splice(1,0,'hehe')-->
+<!--        arr = arr.slice(2)-->
+<!--        arr = arr.concat(['haha', 'end'])-->
+<!--        console.log(arr)-->
+<!--    </script>-->
+</body>
+</html>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .container {
+            width: 100%;
+            border: 1px solid blue;
+        }
+        .big {
+            width: 100%;
+            height: 1000px;
+            /*这个margin正负，他的规范含义是什么？*/
+            margin: -300px;
+            background: red;
+        }
+        .trans {
+            /*似乎并不容易出去*/
+            position: relative;
+            left: -50px;
+            top: -50px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="trans">123</div>
+<!--        <div class="big">456</div>-->
+    </div>
+</body>
+</html>
