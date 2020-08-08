@@ -4,7 +4,10 @@
     <meta charset="UTF-8">
     <title>Title</title>
     <style>
-        div {
+        html {
+            overflow-x: hidden;
+        }
+        .overflow-hidden {
             width: 100px;
             height: 100px;
             overflow: scroll;
@@ -16,19 +19,29 @@
         img {
             object-fit: cover;
             width: 100%;
-            height: 10px;
+            height: 100%;
+        }
+        .radius {
+            border-radius: 50%;
+        }
+        .container img {
+            position: relative;
+            left: 110px;
         }
     </style>
 </head>
 <body>
-    <div>
-        <p>daskld aksdj lkasjd akdjklasjdkl asj da dkasjd askj dkasj dask daksd jlkaakl djksk</p>
-        <p>daskld aksdj lkasjd akdjklasjdkl asj da dkasjd askj dkasj dask daksd jlkaakl djksk</p>
-        <p>daskld aksdj lkasjd akdjklasjdkl asj da dkasjd askj dkasj dask daksd jlkaakl djksk</p>
-        <p>daskld aksdj lkasjd akdjklasjdkl asj da dkasjd askj dkasj dask daksd jlkaakl djksk</p>
-        <p>daskld aksdj lkasjd akdjklasjdkl asj da dkasjd askj dkasj dask daksd jlkaakl djksk</p>
+    <div class="overflow-hidden">
+        <p>overflow 只有在子内容超出的时候，才会发生作用。这往往有两个情况（一般来说，只有当容器限制了大小的时候，overfolw才起到作用。）</p>
+        <p>文字远远超出了容器的大小。</p>
+        <p>子容器超过父亲容器</p>
+        <p>还有个常见的应用是，外部剪裁配合overflow，才会生效</p>
+        <p></p>
     </div>
-    <div>
+    <div class="overflow-hidden radius">
+        <img src="https://pic1.zhimg.com/50/v2-1b1a3a0dbca72b48082ae56c20e15f64.webp"/>
+    </div>
+    <div class="container">
         <img src="https://pic1.zhimg.com/50/v2-1b1a3a0dbca72b48082ae56c20e15f64.webp"/>
     </div>
 </body>

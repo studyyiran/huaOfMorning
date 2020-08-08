@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .big {
+            width: 100px;
+            background: blue;
+        }
+        .mid {
+            width: 50px;
+            background: orange;
+        }
+        .overflow {
+            overflow: hidden;
+        }
+        .small {
+            width: 150%;
+            background: red;
+        }
+        img {
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <div class="big overflow">
+        外层的overflow可以限制内层展示。
+        但是永远没办法阻止他们超出
+        <div class="mid">
+            mid
+            <div class="small">
+                <img class="width" src="https://pic1.zhimg.com/50/v2-1b1a3a0dbca72b48082ae56c20e15f64.webp"/>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
