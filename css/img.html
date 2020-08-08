@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        div {
+            margin-bottom: 10px;
+        }
+        .overflowhidden {
+            width: 100px;
+            height: 100px;
+            overflow: scroll;
+            /*overflow: hidden;*/
+        }
+        p {
+            white-space: nowrap;
+        }
+        .shouzhi img  {
+            object-fit: cover;
+            width: 100%;
+            height: 10px;
+        }
+
+        .flex {
+            display: flex;
+            width: 100px;
+        }
+        .flex img {
+            /*只有打碎img的width 才能奏效*/
+            width: 0;
+            height: auto;
+            align-items: flex-start;
+            flex-basis: 1px;
+            flex-grow: 1;
+            flex-shrink: 1;
+        }
+    </style>
+</head>
+<body>
+    <div class="overflowhidden">
+        <p>img的特点是，她完全不在乎容器的大小，甚至在flex中都是如此</p>
+        <p>当只有width，被强行设置了受制的长宽比，object-fit才会发挥作用</p>
+    </div>
+    <div class="flex">
+        <img src="https://pic1.zhimg.com/50/v2-1b1a3a0dbca72b48082ae56c20e15f64.webp"/>
+    </div>
+    <div>
+        <img src="https://pic1.zhimg.com/50/v2-1b1a3a0dbca72b48082ae56c20e15f64.webp"/>
+    </div>
+</body>
+</html>
