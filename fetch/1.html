@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script>
+        function post(url, data) {
+            return new Promise((resolve, reject) => {
+                fetch(url, {
+                    method: "POST",
+                    body: JSON.stringify(data),
+                    headers: {
+                        "Content-type": "application/json; charset=UTF-8",
+                    },
+                    credentials: "include"
+                })
+                    .then((res) => res.json())
+                    .then((data) => {
+                        resolve(data);
+                    })
+                    .catch((e) => {
+                        reject(e);
+                    });
+            });
+        }
+
+        function get(url) {
+            return new Promise((resolve, reject) => {
+                fetch(url, {
+                    credentials: "include"
+                })
+                    .then((res) => {
+                        console.log(res.body)
+                        return res.json()
+                    })
+                    .then((data) => {
+                        resolve(data);
+                    })
+                    .catch((e) => {
+                        console.log(e)
+                        reject(e);
+                    });
+            });
+        }
+    </script>
+</head>
+<body>
+    <script>
+        get('https://api.zhihu.com/sku/km_resource?token=quiz-game-2020921').then((res) => {
+            console.log(res)
+        })
+        get('https://api1.zhihu.com/sku/km_resource?token=askdakldjaskd').then((res) => {
+            console.log(res)
+        })
+    </script>
+</body>
+</html>
