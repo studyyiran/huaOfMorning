@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        div {
+            width: 100px;
+            background: red;
+        }
+        .box {
+            line-height: 600px;
+            text-align: center;
+        }
+        .box > * {
+            vertical-align: middle;
+        }
+        .inner {
+            background: green;
+            text-align: left;
+            width: 50px;
+            display: inline-block;
+            line-height: 1.2;
+        }
+    </style>
+</head>
+<body>
+    <div class="box">
+        <span class="inner">
+            skjdklasj jaksdj kajd kajs klajskl jaskd jakl djas jdlaj klajd klasj ak jkals jlka
+        </span>
+<!--        <span>x</span>-->
+    </div>
+</body>
+</html>
+
+
+<!--
+line-height 放在外部容器和放在内部，的确有很大不一样。
+放在容器上，会有影响的
+-->

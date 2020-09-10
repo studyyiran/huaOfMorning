@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        p {
+            /*line-height: 100px;*/
+            margin: 0;
+            margin-bottom: 100px;
+            background: blue;
+        }
+        .test1 {
+            line-height: 0px;
+            font-size: 100px;
+            border: 1px solid green;
+        }
+        .test2 {
+            line-height: 100px;
+            font-size: 0;
+            border: 1px solid green;
+        }
+    </style>
+</head>
+<body>
+
+    <p class="test1">
+        <span >x</span>
+    </p>
+    <p class="test2">
+        <span >x</span>
+    </p>
+    <p>-----------</p>
+    <p>
+        <span class="test1">x</span>
+    </p>
+    <p>
+        <span class="test2">x</span>
+    </p>
+</body>
+</html>
+
+<!--
+content-box
+内联盒子（font-size 盒子）
+行框盒子（算上了半行间距和行间距）
+包含盒子（block 盒子）
+-->
+
+
+
+<!--
+是行高控制的高度
+怎么个意思呢？
+
+意思是，div 容器，那是一个包含盒子。
+那他是被行框盒子撑起来的。
+虽然说内联盒子因为 font-size 起来的。但是，行框决定一切。
+
+另外，虽然没有行高。
+但是内连盒子，因为只和 font-size 有关，所以他的自己还是有的。
+只不过不占据空间而已。
+
+在宋体下，内容区域高度=font-size
+
+
+
+内容区域高度 + 行间距 = 行高
+-->

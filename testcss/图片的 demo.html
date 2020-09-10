@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        div {
+            line-height: 100px;
+            background: red;
+            /*font-size: 0;*/
+            /*font-size: 80px;*/
+            /*font-size: 40px;*/
+        }
+        div > * {
+            /*vertical-align: middle;*/
+        }
+        span {
+            background: green;
+            /*display: inline-block;*/
+        }
+        img {
+            /*height: 50px;*/
+        }
+        strong {
+            display: inline-block;
+            /*height: 150px;*/
+            /*line-height: 150px;*/
+        }
+    </style>
+</head>
+<body>
+    <div>
+<!--        <strong>123</strong>-->
+        <img height="40px" src="https://pic1.zhimg.com/50/v2-4d721bc98aa83aeb70187ced5e8288e1.webp" />
+        <span>字体很大</span>
+    </div>
+</body>
+</html>
+
+<!--
+如何让图片垂直居中呢？
+首先，图片后面有个 x
+因此，最简单的，只需要设置一个单独的行高就可以了。
+
+但是因为两者是 baseline 基线对齐，所以图片仍然不是居中的。
+
+这时候还需要设置为 middle，中线对齐。
+
+然而哪怕如此。font-size 越大，偏差就会越大
+
+近似的原因是
+
+
+-->

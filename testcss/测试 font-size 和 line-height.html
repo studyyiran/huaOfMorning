@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        p {
+            background: yellow;
+            line-height: 100px;
+            margin: 0;
+            font-size: 20px;
+            font-family: "simsun";
+        }
+        p > * {
+            background: red;
+            /*vertical-align: middle;*/
+        }
+        span {
+            /*font-size: 20px;*/
+        }
+        strong {
+            /*font-size: 22px;*/
+            /*line-height: 100px;*/
+        }
+    </style>
+</head>
+<body>
+<p>
+    <span>x</span>
+    <span>中国</span>
+    <span>一</span>
+    <span>L</span>
+<!--    <strong>x</strong>-->
+</p>
+</body>
+</html>
+
+
+<!--
+line-height 居中，是相对的。
+为什么它能剧中呢？
+1.因为字体框会放置在 line-height 框居中的未知
+
+为什么是字体框近似呢？
+1.因为文字在 em 中近似居中。
+2.但是不同字体，基线的位置并不一样。
+
+所以 line-height 单行居中，是字体框居中
+
+-->

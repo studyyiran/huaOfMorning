@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+
+        div {
+            margin: 100px auto;
+            /*height: 100px;*/
+            line-height: 100px;
+            background: red;
+            font-size: 24px;
+        }
+        div > * {
+            background: green;
+            /*vertical-align: top;*/
+        }
+        strong {
+            font-size: 120px;
+            background: yellow;
+            /*line-height: 110px;*/
+        }
+        .testvertical {
+            vertical-align: top;
+        }
+    </style>
+</head>
+<body>
+<strong>一</strong>
+    <div>
+        <strong class="testvertical">一</strong>
+        <span>国</span>
+        <span>x</span>
+    </div>
+</body>
+</html>
+
+<!--
+无论是 vertical-align
+还是 font-size 都会影响 line-height 框，从而影响到整体的高度。
+-->
