@@ -15,3 +15,12 @@ min-width，让img服从管制，会被shrink
 flex-basis 不会产生效果。看起来还是不回碰img的大小
 width 非常有效。会让他有所收敛 效果和max-width很像
 
+《
+补充。
+min-width 的作用仅仅是打掉了img的最小值。让他可以被shrink。具体行为，取决于flex
+flex-basis和width和min-witdh的互作不叫复杂
+》
+
+
+flex之所以可以用来做滚动，因为这是打破block的一种常见方式。
+

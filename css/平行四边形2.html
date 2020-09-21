@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .scroll {
+            display: flex;
+            width: 100px;
+            height: 200px;
+            background: red;
+            flex-wrap: nowrap;
+            overflow: scroll;
+            align-items: flex-start;
+        }
+        .scroll > div {
+            height: 50px;
+            flex-basis: 50px;
+            flex-shrink: 0;
+            /*transform: skewX(-45deg);*/
+            background: green;
+            margin-right: 10px;
+            position: relative;
+            z-index: 999;
+        }
+        .scroll > div::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            bottom: 0;
+            z-index: -999;
+            left: 0;
+            height: 100px;
+            background-color: rgb(36, 7, 77);
+             transform: skewX(-45deg);
+            margin-right: -15px;
+        }
+    </style>
+</head>
+<body>
+<!--https://www.zhangxinxu.com/wordpress/2019/04/css-parallelogram-layout/-->
+    <div class="container">
+        <div class="scroll">
+            <div>1</div>
+            <div>1</div>
+<!--            <div>1</div>-->
+<!--            <div>1</div>-->
+<!--            <div>1</div>-->
+        </div>
+    </div>
+
+
+    <script>
+        // let dom = document.querySelector('#target')
+        // dom.addEventListener('click', () => {
+        //     if (dom.getAttribute('class')) {
+        //         dom.setAttribute('class', '')
+        //     } else {
+        //         dom.setAttribute('class', 'run')
+        //     }
+        //
+        // })
+    </script>
+</body>
+</html>

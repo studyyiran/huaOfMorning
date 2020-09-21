@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .container {
+            height: 120px;
+            line-height: 120px;
+            background: red;
+            font-size: 50px;
+            font-size: 0px;
+            border: 10px solid green;
+            /*box-sizing: border-box;*/
+        }
+        .container > * {
+            vertical-align: middle;
+            font-size: 50px;
+        }
+        span {
+            background: blue;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+<!--        line-height 还是有很多细节值得搞懂。这个稍后再看吧。先高需求-->
+        <span>X</span>
+        X
+<!--        <span>没想到的是。。居然border对居中也有影响。我觉得居中依赖太多了。middle lineheight fontsize border 所以还是flex好</span>-->
+<!--        <span>这个例子说明，垂直居中举要配合</span>-->
+<!--        <span>并且还说明，</span>-->
+<!--        <span>2Bb</span>-->
+<!--        <span>3x</span>-->
+<!--        <img width="100px" src="https://pic1.zhimg.com/50/v2-1b1a3a0dbca72b48082ae56c20e15f64.webp"/>-->
+<!--        <svg version="1.1" baseProfile="full" width="300" height="200" xmlns="http://www.w3.org/2000/svg"><rect width="100%" height="100%" fill="red" /><circle cx="150" cy="100" r="80" fill="green" /><text x="150" y="125" font-size="60" text-anchor="middle" fill="white">SVG</text></svg>-->
+    </div>
+</body>
+</html>

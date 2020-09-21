@@ -46,11 +46,15 @@
         }
 
         function get(url) {
+            // 1 fetch自带promise 直接 return 或者 throw（不是throw 是Promise.reject）
             return new Promise((resolve, reject) => {
                 fetch(url, {
                     credentials: "include"
                 })
+                    // 3 没有关注返回结果 需要处理 404 等(400以上都需要关照)
+                    // 4 没有关注content-type类型。贸然转换。会报错
                     .then((res) => res.json())
+                    // 2 then多余
                     .then((data) => {
                         resolve(data);
                     })
@@ -60,6 +64,10 @@
             })
         }
 
+
+        // 扩展性差，兼容性 node层同构
+        
+        //
 
     </script>
 </head>
