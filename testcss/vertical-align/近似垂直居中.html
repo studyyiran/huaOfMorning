@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<!-- 
+   为什么是近似呢？因为，不同字体，他的默认基线不一样。对应的，middle 的位置也不一样。并不是在 x 的中心点。这个差异叫做字体差异
+   不过具体问题还要看
+
+   而且我觉得，字体大小越大，这种情况越明显。他是一个百分比偏差。（我认为可以通过小写的 x 和大写的 X来看出来）
+   
+
+   当一个行框的字体大小不一样的时候，我们需要设置 vertical-align
+
+
+   另外，我们一般不通过设置内部字体大小。
+   为啥呢？因为那样子，容器的高度，会大于行高。
+
+   但是设置容器大小有什么问题吗？没啥问题。那为什么他不会导致问题呢？因为所有元素的字体大小都一样。
+   对行内框没有破坏。这叫做同生共死。
+
+   而一个字体很大，就叫做叛徒。大家仍然要保持 baseline 对其，因此会造成更大的行内框，甚至导致容器变大。
+ -->
+<html>
+    <head>
+        <style>
+            .container {
+                background: gray;
+                /* margin: 0; */
+                line-height: 100px;
+                height: 100px;
+                /* font-size: 60px; */
+                /* width: 200px; */
+            }
+            .container > * {
+                /* vertical-align: middle; */
+            }
+            .ghost {
+                font-size: 50px;
+                background: red;
+            }
+            .ghost > * {
+                /* vertical-align: middle; */
+            }
+            .button {
+                display: inline-block;
+                line-height: 100px;
+                height: 100px;
+                border: 1px solid red;
+                font-size: 40px;
+                width: 20px;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <!-- <img width="100px" src="https://pic1.zhimg.com/50/v2-4d721bc98aa83aeb70187ced5e8288e1.webp" /> -->
+            <span class="ghost">This is a x X</span>
+            <span>X</span>
+        </div>
+        <!-- <div class="button" style="line-height: 0">x</div>   -->
+        <!-- <div class="button">x x xxxxxxx</div>   -->
+    </body>
+</html>

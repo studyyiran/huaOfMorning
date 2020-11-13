@@ -1,15 +1,35 @@
+<!DOCTYPE html>
+<!-- 
+    这种现象，本质上，就是图片的 baseline 在底部。文字在 x。
+    那么
+    1）vertical-align 对其方式修改为
+    2) img变为 block 直接打破 line-height 和 vertical-aling 只作用于行内元素的诅咒
+    3）line-height = 0. line-height 会直接影响行框高度。行框为 0。类似，font-size 也是一样的。
+ -->
 <html>
     <head>
         <style>
             .container {
-                background: red;
+                background: gray;
                 margin: 0;
+                line-height: 0;
+                width: 200px;
+            }
+            .container > * {
+                /* vertical-align: top; */
+            }
+            .ghost {
+                background: red;
             }
         </style>
     </head>
     <body>
         <div class="container">
-            <img width="200px" height="200px" src="https://pic1.zhimg.com/50/v2-4d721bc98aa83aeb70187ced5e8288e1.webp" />
+            <img width="100px" src="https://pic1.zhimg.com/50/v2-4d721bc98aa83aeb70187ced5e8288e1.webp" />
+            <span class="ghost">x</span>
+            <!-- <span>但是接口分离开  开始的减肥了看电视剧付款卡兰蒂斯分开了爱豆世纪开了房 jksdl</span> -->
+            
         </div>
+        
     </body>
 </html>

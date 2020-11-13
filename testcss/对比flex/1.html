@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <style>
+            .container {
+                width: 392px;
+                background-color: rgba(153, 153, 153, 0.08);
+                background-color: red;
+                margin: 200px;
+                border: 55px solid yellow;
+                font-size: 0;
+                
+            }
+            span {
+                font-size: 20px;
+            }
+            .flex {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                height: 232px;
+            }
+            .lineheight {
+                line-height: 232px;
+                text-align: center;
+            }
+            .lineheight img {
+                vertical-align: middle;
+            }
+            span {
+                vertical-align: middle;
+                /* background: green; */
+                
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container lineheight">
+            <!-- <span>操作按钮x</span> -->
+            <img width="100px" src="https://pic1.zhimg.com/50/v2-4d721bc98aa83aeb70187ced5e8288e1.webp" />
+        </div>
+        <div class="container flex">
+            <span>操作按钮x</span>
+            <img width="100px" src="https://pic1.zhimg.com/50/v2-4d721bc98aa83aeb70187ced5e8288e1.webp" />
+        </div>
+    </body>
+</html>
+
+
+<!-- 
+我认为这说明。。
+lingheight 做文本居中，是 ok 的。两者没有任何差异。
+但是配合 vertical-align 做图片居中。显然没有 flex 好。
+
+奇怪了。。。。
+我测试图片和文本的居中。测试的结果是，得大家都设置为 middle，这和我昨天的理解不一样啊。。。
+并且还得设置容器的 font-size
+额。
+
+我现在确定的垂直居中的方案是
+1）所有元素 vertical-align middle
+2）font-size:0
+3）字体多大自己设在自己身上。
+
+ -->

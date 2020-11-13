@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<!-- 
+   下面的高度是因为什么呢？
+   就算 line-height 为 0 了，那么半行间距，就是负的了。这不重要。
+   重要的是，他们底边得对齐，所以强行有一段和 font-size 有关的距离（隐形节点的默认）
+ -->
+<html>
+    <head>
+        <style>
+            .container {
+                text-align: center;
+                width: 200px;
+                background: red;
+            }
+            img {
+                
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <img width="100px" src="https://pic1.zhimg.com/50/v2-4d721bc98aa83aeb70187ced5e8288e1.webp" />
+        </div>    
+    </body>
+</html>

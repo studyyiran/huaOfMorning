@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <style>
+            .container {
+                box-sizing: border-box;
+                display: flex;
+                flex-direction: column;
+
+                width: 50px;
+                height: 500px;
+                background: green;
+                padding-bottom: 50px;
+                /* overflow: scroll; */
+            }
+            .inner {
+                background: red;
+                flex: 1;
+                padding-bottom: 200px;
+            }
+            div {
+                min-height: 50px;
+                /* margin-bottom: 50px; */
+                margin-top: 50px;
+            }
+        </style>
+        <script>
+            
+            /*
+                我认为，box-sizing 如果放任不管，flex 无法计算额外的 padding。但是 margin 的计算是正常的。
+                不。他是按照容器，而不是 height。他和 100%不一样。无论 width 和 height 都不会影响。
+            */
+
+        </script>
+    </head>
+    <body>
+        <div class="container">
+            <div>1</div>
+            <div>1</div>
+            <div class="inner">1</div>
+        </div>
+    </body>
+</html>
+

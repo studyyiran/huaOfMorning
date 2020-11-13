@@ -1,0 +1,149 @@
+{
+  "rights": [
+    {
+      "title": "卡片贴纸",
+      "key": "sticker",
+      "src_normal": "https://pic1.zhimg.com/v2-059a52870585d292b21950b24059ece6.png",
+      "src_active": "https://pic3.zhimg.com/v2-8f872d3782d4df10ba6cf66524006c3d.png",
+      "content": [
+        {
+
+          "title": "盐选会员、学生会员",
+          "desc": "畅享国内外 <strong>11000+ </strong>本杂志",
+          "imgs": [
+            {
+              "img": "https://pic4.zhimg.com/v2-f5ed558b44fc32f6558d0bbf0ccb162e.png"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "屏蔽关键词",
+      "key": "feedBlock",
+      "src_normal": "https://pic1.zhimg.com/v2-059a52870585d292b21950b24059ece6.png",
+      "src_active": "https://pic3.zhimg.com/v2-8f872d3782d4df10ba6cf66524006c3d.png",
+      "content": [
+        {
+
+          "title": "屏蔽关键词13123",
+          "desc": "屏蔽关键词456456",
+          "imgs": [
+            {
+              "img": "https://pic4.zhimg.com/v2-f5ed558b44fc32f6558d0bbf0ccb162e.png"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "评论发图",
+      "key": "normal1",
+      "src_normal": "https://pic1.zhimg.com/v2-059a52870585d292b21950b24059ece6.png",
+      "src_active": "https://pic3.zhimg.com/v2-8f872d3782d4df10ba6cf66524006c3d.png",
+      "content": [
+        {
+
+          "title": "评论发图123123",
+          "desc": "评论发图456456",
+          "imgs": [
+            {
+              "img": "https://pic4.zhimg.com/v2-f5ed558b44fc32f6558d0bbf0ccb162e.png"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "评论表情",
+      "key": "normal2",
+      "src_normal": "https://pic1.zhimg.com/v2-059a52870585d292b21950b24059ece6.png",
+      "src_active": "https://pic3.zhimg.com/v2-8f872d3782d4df10ba6cf66524006c3d.png",
+      "content": [
+        {
+
+          "title": "评论发图123123",
+          "desc": "评论发图456456",
+          "imgs": [
+            {
+              "img": "https://pic4.zhimg.com/v2-f5ed558b44fc32f6558d0bbf0ccb162e.png"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "加速改名",
+      "key": "changeName",
+      "src_normal": "https://pic1.zhimg.com/v2-059a52870585d292b21950b24059ece6.png",
+      "src_active": "https://pic3.zhimg.com/v2-8f872d3782d4df10ba6cf66524006c3d.png",
+      "content": [
+        {
+
+          "title": "changeName123123",
+          "desc": "changeName456456",
+          "imgs": [
+            {
+              "img": "https://pic4.zhimg.com/v2-f5ed558b44fc32f6558d0bbf0ccb162e.png"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "动态置顶",
+      "key": "normal3",
+      "src_normal": "https://pic1.zhimg.com/v2-059a52870585d292b21950b24059ece6.png",
+      "src_active": "https://pic3.zhimg.com/v2-8f872d3782d4df10ba6cf66524006c3d.png",
+      "content": [
+        {
+
+          "title": "normal3123123",
+          "desc": "normal3456456",
+          "imgs": [
+            {
+              "img": "https://pic4.zhimg.com/v2-f5ed558b44fc32f6558d0bbf0ccb162e.png"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "专属客服",
+      "key": "vipService",
+      "src_normal": "https://pic1.zhimg.com/v2-059a52870585d292b21950b24059ece6.png",
+      "src_active": "https://pic3.zhimg.com/v2-8f872d3782d4df10ba6cf66524006c3d.png",
+      "content": [
+        {
+
+          "title": "vipService123123",
+          "desc": "vipService456456",
+          "imgs": [
+            {
+              "img": "https://pic4.zhimg.com/v2-f5ed558b44fc32f6558d0bbf0ccb162e.png"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "优质专栏",
+      "key": "vipContent",
+      "src_normal": "https://pic1.zhimg.com/v2-059a52870585d292b21950b24059ece6.png",
+      "src_active": "https://pic3.zhimg.com/v2-8f872d3782d4df10ba6cf66524006c3d.png",
+      "content": [
+        {
+
+          "title": "vipContent123123",
+          "desc": "vipContent456456",
+          "imgs": [
+            {
+              "img": "https://pic4.zhimg.com/v2-f5ed558b44fc32f6558d0bbf0ccb162e.png"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "is_public_data": "1"
+}

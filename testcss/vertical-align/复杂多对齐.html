@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<!-- 
+   下面的高度是因为什么呢？
+   就算 line-height 为 0 了，那么半行间距，就是负的了。这不重要。
+   重要的是，他们底边得对齐，所以强行有一段和 font-size 有关的距离（隐形节点的默认）
+ -->
+<html>
+    <head>
+        <style>
+            .justify-fix {
+                display: inline-block;
+                width: 100px;
+                text-align: justify;
+                background: gray;
+                border: 1px solid red;
+            }
+            .container {
+                background: gray;
+                width: 400px;
+            }
+            .container > * {
+                /* vertical-align: middle; */
+            }
+            .ghost {
+                background: red;
+                display: inline-block;
+                /* font-size: 100px */
+            }
+            .action-button-container {
+                position: fixed;
+                bottom: 0;
+            }
+        </style>
+    </head>
+    <body>
+        <script>
+            const checkAndSet = (doms, style) => {
+                function set (dom) {
+
+                    if (dom.getAttribute('style')) {
+                        dom.setAttribute('style', '')
+                    } else {
+                        dom.setAttribute('style', style)
+                    }
+                }
+                if (doms.length > 0) {
+                    doms.forEach((dom) => {
+                        set(dom)
+                    })
+                } else {
+                    let dom = doms
+                    set(dom)
+                }
+                
+            }
+        </script>
+        <div class="container">
+            <img width="100px" src="https://pic1.zhimg.com/50/v2-4d721bc98aa83aeb70187ced5e8288e1.webp" />
+            <img width="100px" src="https://pic1.zhimg.com/50/v2-4d721bc98aa83aeb70187ced5e8288e1.webp" />
+            <img width="100px" src="https://pic1.zhimg.com/50/v2-4d721bc98aa83aeb70187ced5e8288e1.webp" />
+            <img width="100px" src="https://pic1.zhimg.com/50/v2-4d721bc98aa83aeb70187ced5e8288e1.webp" />
+            <!-- <span class="ghost">x</span> -->
+            <i class="justify-fix"></i>
+            <i class="justify-fix"></i>
+            <i class="justify-fix"></i>
+            <span class="ghost">x</span>
+        </div>
+        <div class="action-button-container">
+            <div onclick="checkAndSet(document.querySelector('.container'), 'line-height: 0')">设置line-height</div>
+            <div onclick="checkAndSet(document.querySelectorAll('.justify-fix'), 'vertical-align: top')">vertical-align</div>
+        </div>
+    </body>
+</html>

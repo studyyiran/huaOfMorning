@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<!-- 
+    为什么字体变大之后，x 显得不是垂直居中了呢？
+    因为字体会下沉。
+
+    为什么字体变大之后，图片也显得不垂直居中了呢？
+    因为按照定义，父节点字体下沉之后，所有元素，都会
+
+    为什么 vertical-align 设置当成 middle 就一定会有更大的空间呢？
+    确实如此
+
+ -->
+<html>
+    <head>
+        <style>
+            .container {
+                line-height: 200px;
+                height: 200px;
+                font-size: 50px;
+                background: red;
+            }
+            .container > * {
+                vertical-align: middle;
+            }
+            .big {
+                font-size: 80px;
+            }
+            .container::before {
+                content: 'x'
+            }
+            span {
+                background: green;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <img width="100px" src="https://pic1.zhimg.com/50/v2-4d721bc98aa83aeb70187ced5e8288e1.webp" />
+            <span class="big">x fontsize 80</span>
+            <img width="100px" src="https://pic1.zhimg.com/50/v2-4d721bc98aa83aeb70187ced5e8288e1.webp" />
+            <span>x size is 50 same as container</span>
+        </div>
+    </body>
+</html>

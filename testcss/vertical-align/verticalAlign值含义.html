@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <style>
+            .container {
+                background: green;
+                line-height: 200px ;
+                font-size: 50px;
+            }
+            .bottom {
+                vertical-align: top;
+                vertical-align: text-top;
+                vertical-align: text-bottom;
+                vertical-align: bottom;
+                vertical-align: middle;
+                vertical-align: baseline;
+            }
+            .big {
+                font-size: 20px;
+            }
+            .line {
+                background: red;
+                display: inline-block;
+            }
+
+        </style> 
+    </head>
+    <body>
+        <div class="container">
+            <span class="big line">xXx</span>
+            <img width="250px" class="bottom" src="https://pic1.zhimg.com/50/v2-4d721bc98aa83aeb70187ced5e8288e1.webp" />
+           <span class="line">xXx</span>
+           <!-- <span>xy</span> -->
+           <!-- <span>xyz</span> -->
+        </div>
+    </body>
+</html>
+
+
+<!-- 
+    这里面有两个概念。
+    top 和 bottom 是唯二两个，只认行框的
+    其他所有人，包括 baseline，text-top，认定的都是，幽灵节点。也叫做父级节点。
+
+    另外还有个特性就是，改变父级的大小，会对他产生影响。
+ -->

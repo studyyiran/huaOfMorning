@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <style>
+            .container {
+                width: 40px;
+                box-sizing: border-box;
+                height: 500px;
+                background: green;
+                padding-bottom: 50px;
+                overflow: scroll;
+            }
+            .inner {
+                height: 100%;
+                padding-top: 50px;
+                /* box-sizing: border-box; */
+                background: red;
+            }
+        </style>
+        <script>
+            const string = '没有绿色。高度 500.至于padding50.容器 450.总共 500。否则，容器 500.总共 550、✔️'
+            /*
+            那么实际上，容器高度是450.所以
+            因此方案就是
+            1）让外部容器来搞定 padding
+            2）内部容器不需要设定高度。自由发挥、滚动来搞定
+            */
+
+        </script>
+    </head>
+    <body>
+        <div class="container">
+            <div class="inner">时间打快递费克拉的减肥；卡迪夫接口卡萨丁积分卡京东方苦辣都是九分裤考虑到积分卡登记反馈垃圾爱豆世纪发动机开发哈科技</div>
+        </div>
+    </body>
+</html>
+
